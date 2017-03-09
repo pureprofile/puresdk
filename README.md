@@ -60,8 +60,8 @@ The supported params / keys of the configuration object are:
 ## Authenticate / authorise the user
 Second step (which is also absolutely mandatory) is to authenticate and authorise the current user. The library will automatically
 check if the user is logged in and also if the logged in user has access to the application. The flow goes as follows:
-### Commonjs version example:
 
+### Commonjs version example:
 <pre lang="javascript"><code>
 let puresdk = require('puresdk');
 
