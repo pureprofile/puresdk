@@ -201,7 +201,7 @@ var PPBA = {
 			document.body.insertBefore(div, document.body.firstChild);
 			whereTo = document.getElementById(Store.getHTLMContainer());
 		}
-		whereTo.innerHTML = Store.getHTML();
+		whereTo.innerHTML = Store.getHTML(Store.getUserData().user.account);
 		PPBA.renderUser(Store.getUserData().user);
 		PPBA.renderAccounts(Store.getUserData().user.accounts);
 		if (Store.getAppsVisible() === false) {

@@ -43,7 +43,9 @@ var Store = {
 	},
 
 	setHTMLTemplate: function setHTMLTemplate(template) {
-		state.htmlTemplate = template;
+		state.htmlTemplate = function (account) {
+			return template;
+		};
 	},
 
 	setApps: function setApps(apps) {
@@ -86,8 +88,8 @@ var Store = {
 		}
 	},
 
-	getHTML: function getHTML() {
-		return state.htmlTemplate;
+	getHTML: function getHTML(account) {
+		return state.htmlTemplate(account);
 	},
 
 	getWindowName: function getWindowName() {
