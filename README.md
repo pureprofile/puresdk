@@ -100,9 +100,28 @@ just one argument (string).
 
 ## subscribeListener
 In order to take control of the search bar you should subscribe listeners to its events. The available events of the search
-input are "searchKeyUp", "searchEnter", "searchOnChage". In order to subscribe and start listening to any of those events
-you should use the subscribeListener. The subscribeListener method returns back a function that when executed it unsubscribes
-the subscribed handler.
+input are:
+<table width="100%" cellspacing="0" cellpadding="0">
+    <tr>
+        <td><b>Event key</b></td>
+        <td><b>Description</b></td>
+    </tr>
+    <tr>
+        <td>searchKeyUp</td>
+        <td>Listener on keyUp of search input on top bar</td>
+    </tr>
+    <tr>
+        <td>searchEnter</td>
+        <td>Listener on enter key pressed on search input on top bar</td>
+    </tr>
+    <tr>
+        <td>searchOnChage</td>
+        <td>Listener on change of input value</td>
+    </tr>
+</table>
+In order to subscribe and start handling any of those events you should use the subscribeListener.
+The subscribeListener method returns a function that when executed it unsubscribes the subscribed handler.
+
 ### Example
 <pre lang="javascript"><code>
 let puresdk = require('puresdk');
@@ -112,9 +131,10 @@ init & authentication process
 */
 
 var unsubscribe = puresdk.subscribeListener('searchKeyUp', handlerFunction);
-/* after subscribing the handlerFunction of yours to the searchKeyUp event on each key up on the input the
-handlerFunction will get invoked passing the event as argument to it */
+/* now that you have subscribed the handlerFunction to the searchKeyUp event the
+handlerFunction will get invoked on each key up event on the search input. The handlerFunction
+will be invoked having one argument passed to it, the actual event */
 
-/* When you want to unsubscribe the handlerFunction from the searchKeyUp event you do: */
+/* When you want to unsubscribe the handlerFunction from the searchKeyUp event just do: */
 unsubscribe();
 </code></pre>
