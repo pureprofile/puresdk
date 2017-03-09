@@ -194,6 +194,8 @@ var PPBA = {
 		var logo = document.createElement('img');
 		logo.src = account.sdk_logo_icon;
 		document.getElementById('--puresdk-account-logo--').appendChild(logo);
+		document.getElementById('--puresdk-bac--header-apps--').style = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
+		document.getElementById('--puresdk--search--input--').style = "background: #" + account.sdk_search_background_color + "; color: #" + account.sdk_search_font_color;
 	},
 
 	render: function render() {
