@@ -18,9 +18,9 @@ in a script tag from CDN the library is exposed to window.PURESDK namespace.
 # Features
 ## Initialise the library
 First thing you should do is to initialise the library. This step is mandatory when useing the library.
-In order to initialise the library use the "inti" function exposed by it.
-### Commonjs version example:
+In order to initialise the library use the "init" function exposed by it.
 
+### Commonjs version example:
 <pre lang="javascript"><code>
 let puresdk = require('puresdk');
 
