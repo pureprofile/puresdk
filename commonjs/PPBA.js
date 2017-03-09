@@ -190,6 +190,12 @@ var PPBA = {
 		}
 	},
 
+	styleAccount: function styleAccount(account) {
+		var logo = document.createElement('img');
+		logo.src = account.sdk_logo_icon;
+		document.getElementById('--puresdk-account-logo--').appendChild(logo);
+	},
+
 	render: function render() {
 		var whereTo = document.getElementById(Store.getHTLMContainer());
 		if (whereTo === null) {
@@ -201,7 +207,8 @@ var PPBA = {
 			document.body.insertBefore(div, document.body.firstChild);
 			whereTo = document.getElementById(Store.getHTLMContainer());
 		}
-		whereTo.innerHTML = Store.getHTML(Store.getUserData().user.account);
+		whereTo.innerHTML = Store.getHTML();
+		PPBA.styleAccount(Store.getUserData().user.account);
 		PPBA.renderUser(Store.getUserData().user);
 		PPBA.renderAccounts(Store.getUserData().user.accounts);
 		if (Store.getAppsVisible() === false) {
