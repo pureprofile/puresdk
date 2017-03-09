@@ -3,7 +3,7 @@
 /*!
  * PureProfile PureProfile Business Apps Development SDK
  *
- * version: 0.0.1-alpha.14
+ * version: 0.0.1-alpha.15
  * date: 2017-03-09
  *
  * Copyright 2017, PureProfile
