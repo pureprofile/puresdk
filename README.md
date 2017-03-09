@@ -13,7 +13,7 @@ versions x.x.x-alpha.x are not stable and are used only for development. For pro
 For development, in order to always have the latest version (either alpha or stable) please use ">x.y.z-alpha" semantic version.
 The npm repository is "puresdk".
 If you are working with npm you just need to require / import the library into your code. If your're loading the library
-in a <script> tag from CDN the library is exposed to window.PURESDK namespace.
+in a script tag from CDN the library is exposed to window.PURESDK namespace.
 
 # Features
 ## Initialise the library
