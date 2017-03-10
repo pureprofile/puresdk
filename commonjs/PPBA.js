@@ -126,7 +126,7 @@ var PPBA = {
 			endpoint: Store.getSwitchAccountEndpoint(accountId),
 			callbacks: {
 				success: function success(result) {
-					window.location = '/';
+					window.location = '/apps';
 				},
 				fail: function fail(err) {
 					alert('Sorry, something went wrong with your request. Plese try again');
