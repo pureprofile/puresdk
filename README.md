@@ -130,6 +130,13 @@ let puresdk = require('puresdk');
 init & authentication process
 */
 
+/* Your event handling function *.
+var handlerFunction = function(event){
+    /*
+    here goes the handling of the event
+    */
+}
+
 var unsubscribe = puresdk.subscribeListener('searchKeyUp', handlerFunction);
 /* now that you have subscribed the handlerFunction to the searchKeyUp event the
 handlerFunction will get invoked on each key up event on the search input. The handlerFunction
