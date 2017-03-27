@@ -206,7 +206,7 @@ var PPBA = {
 			var div = document.createElement('div');
 			div.id = Store.getHTLMContainer();
 			div.style.width = '100%';
-			div.style.height = '60px';
+			div.style.height = '50px';
 			document.body.insertBefore(div, document.body.firstChild);
 			whereTo = document.getElementById(Store.getHTLMContainer());
 		}
