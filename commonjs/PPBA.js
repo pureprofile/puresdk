@@ -192,9 +192,9 @@ var PPBA = {
 		var logo = document.createElement('img');
 		logo.src = account.sdk_logo_icon;
 		document.getElementById('--puresdk-account-logo--').appendChild(logo);
-		document.getElementById('--puresdk-bac--header-apps--').style = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
-		document.getElementById('--puresdk-user-sidebar--').style = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
-		document.getElementById('--puresdk--search--input--').style = "background: #" + account.sdk_search_background_color + "; color: #" + account.sdk_search_font_color;
+		document.getElementById('--puresdk-bac--header-apps--').style.cssText = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
+		document.getElementById('--puresdk-user-sidebar--').style.cssText = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
+		document.getElementById('--puresdk--search--input--').style.cssText = "background: #" + account.sdk_search_background_color + "; color: #" + account.sdk_search_font_color;
 	},
 
 	render: function render() {
@@ -213,7 +213,7 @@ var PPBA = {
 		PPBA.renderUser(Store.getUserData().user);
 		PPBA.renderAccounts(Store.getUserData().user.accounts);
 		if (Store.getAppsVisible() === false) {
-			document.getElementById('--puresdk-apps-section--').style = "display:none";
+			document.getElementById('--puresdk-apps-section--').style.cssText = "display:none";
 		}
 		afterRender();
 	}
