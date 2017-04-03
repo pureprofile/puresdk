@@ -1,5 +1,3 @@
-'use strict';
-
 var Store = require('./store.js');
 var Logger = require('./logger');
 

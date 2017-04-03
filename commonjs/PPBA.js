@@ -1,5 +1,3 @@
-'use strict';
-
 var Logger = require('./modules/logger');
 var PubSub = require('./modules/pubsub');
 var Caller = require('./modules/caller');
