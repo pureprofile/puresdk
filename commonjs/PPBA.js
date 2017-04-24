@@ -115,7 +115,7 @@ var PPBA = {
 	},
 
 	setInputPlaceholder: function setInputPlaceholder(txt) {
-		document.getElementById(Store.getSearchInputId()).placeholder = txt;
+		// document.getElementById(Store.getSearchInputId()).placeholder = txt;
 	},
 
 	changeAccount: function changeAccount(accountId) {
@@ -194,7 +194,8 @@ var PPBA = {
 		document.getElementById('--puresdk-account-logo--').appendChild(logo);
 		document.getElementById('--puresdk-bac--header-apps--').style.cssText = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
 		document.getElementById('--puresdk-user-sidebar--').style.cssText = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
-		document.getElementById('--puresdk--search--input--').style.cssText = "background: #" + account.sdk_search_background_color + "; color: #" + account.sdk_search_font_color;
+		// document.getElementById('--puresdk--search--input--').style.cssText = "background: #" + account.sdk_search_background_color
+		//   + "; color: #" + account.sdk_search_font_color;
 	},
 
 	render: function render() {
