@@ -1,9 +1,9 @@
 # Purpose
-The purspose of this library is to aim developers create applications for the PureProfile Business Platform.
+The purpose of this library is to aim developers create applications for the PureProfile Business Platform.
 The library provides:
-* authentication / authorisation layer
+* authentication / authorization layer
 * navigation through apps and accounts
-* a generic search input which can be utilised by any application as it exports listeners
+* a generic search input which can be utilized by any application as it exports listeners
 
 # Distribution / Installation
 The library is available through npm, bower and cdn.
@@ -12,13 +12,13 @@ versions x.x.x-alpha.x are not stable and are used only for development. For pro
 "*" (for latest), x.x.x, >x.x.x, ^x.x.x etc semantic version.
 For development, in order to always have the latest version (either alpha or stable) please use ">x.y.z-alpha" semantic version.
 The npm repository is "puresdk".
-If you are working with npm you just need to require / import the library into your code. If your're loading the library
+If you are working with npm you just need to require / import the library into your code. If you're loading the library
 in a script tag from CDN the library is exposed to window.PURESDK namespace.
 
 # Features
-## Initialise the library
-First thing you should do is to initialise the library. This step is mandatory when useing the library.
-In order to initialise the library use the "init" function exposed by it.
+## Initialize the library
+First thing you should do is to initialize the library. This step is mandatory when using the library.
+In order to initialize the library use the "init" function exposed by it.
 
 ### Commonjs version example:
 <pre lang="javascript"><code>
@@ -26,15 +26,17 @@ let puresdk = require('puresdk');
 
 puresdk.init({
     headerDivId: 'puresdk-container',
-    appsVisible: true
+    appsVisible: true,
+    development: false
 });
 </code></pre>
 
-### CDN version expample:
+### CDN version example:
 <pre lang="javascript"><code>
 window.PURESDK.init({
     headerDivId: 'puresdk-container',
-    appsVisible: true
+    appsVisible: true,
+    development: false
 });
 </code></pre>
 
@@ -55,10 +57,14 @@ The supported params / keys of the configuration object are:
         <td>It referes to the applications icon of the top bar. If for any reason you don't want to have the applications
         menu on your app you can set the value of appsVisible to false. Default is true.</td>
     </tr>
+    <tr>
+        <td>development (optional, default=false)</td>
+        <td>When development is enabled it overrides the default call urls to call PureProfile's dev-servers instead of the current domain.</td>
+    </tr>
 </table>
 
-## Authenticate / authorise the user
-Second step (which is also absolutely mandatory) is to authenticate and authorise the current user. The library will automatically
+## Authenticate / authorize the user
+Second step (which is also absolutely mandatory) is to authenticate and authorize the current user. The library will automatically
 check if the user is logged in and also if the logged in user has access to the application. The flow goes as follows:
 
 ### Commonjs version example:
@@ -67,18 +73,20 @@ let puresdk = require('puresdk');
 
 puresdk.init({
     headerDivId: 'puresdk-container',
-    appsVisible: true
+    appsVisible: true,
+    development: false
 });
 
 // Promise version authentication
 puresdk.authenticatePromise().then(/* here goes your code */);
 </code></pre>
 
-### CDN version expample:
+### CDN version example:
 <pre lang="javascript"><code>
 window.PURESDK.init({
     headerDivId: 'puresdk-container',
-    appsVisible: true
+    appsVisible: true,
+    development: false
 });
 
 // Callback version authentication
@@ -89,7 +97,7 @@ window.PURESDK.authenticate(function(userInfo){
 
 Mention the two ways of authentication provided by the library. You can either use the authenticatePromise method which
 returns a promise or the authenticate method which takes as parameter a success callback. Failure should not concern you as
-in such case the library automtically redirects the user to the login page.
+in such case the library automatically redirects the user to the login page.
 
 ## getUserData
 This function returns the full data of the user in an object.

@@ -98,6 +98,12 @@ var Store = {
 
 	getUserData: function getUserData() {
 		return state.userData;
+	},
+	setBaseUrl: function setBaseUrl(baseUrl) {
+		state.configuration.baseUrl = baseUrl;
+	},
+	setLoginUrl: function setLoginUrl(loginUrl) {
+		state.configuration.loginUrl = loginUrl;
 	}
 };
 
