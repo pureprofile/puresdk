@@ -3,7 +3,7 @@
 /*!
  * PureProfile PureProfile Business Apps Development SDK
  *
- * version: 1.1.5-alpha.01
+ * version: 1.1.5
  * date: 2017-05-05
  *
  * Copyright 2017, PureProfile
@@ -14,7 +14,7 @@
 var ppba = require('./PPBA');
 ppba.setWindowName('PURESDK');
 ppba.setConfiguration({
-    "logs": true,
+    "logs": false,
     "baseUrl": "/api/v1/",
     "loginUrl": "/api/v1/oauth2",
     "searchInputId": "--puresdk--search--input--",
