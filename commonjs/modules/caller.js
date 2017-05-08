@@ -42,7 +42,7 @@ var Caller = {
 					attrs.middlewares.success(JSON.parse(xhr.responseText));
 					resolve(JSON.parse(xhr.responseText));
 				} else {
-					window.location = Store.getLoginUrl();
+					window.location.href = Store.getLoginUrl();
 				}
 			};
 			xhr.onerror = function () {
