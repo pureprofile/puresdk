@@ -49,19 +49,19 @@ var Store = {
 	},
 
 	getLoginUrl: function getLoginUrl() {
-		return state.configuration.loginUrl + "?" + state.configuration.redirectUrlParam + "=" + window.location.href;
+		return state.configuration.rootUrl + state.configuration.loginUrl + "?" + state.configuration.redirectUrlParam + "=" + window.location.href;
 	},
 
 	getAuthenticationEndpoint: function getAuthenticationEndpoint() {
-		return state.configuration.baseUrl + 'session';
+		return state.configuration.rootUrl + state.configuration.baseUrl + 'session';
 	},
 
 	getSwitchAccountEndpoint: function getSwitchAccountEndpoint(accountId) {
-		return state.configuration.baseUrl + 'accounts/switch/' + accountId;
+		return state.configuration.rootUrl + state.configuration.baseUrl + 'accounts/switch/' + accountId;
 	},
 
 	getAppsEndpoint: function getAppsEndpoint() {
-		return state.configuration.baseUrl + 'apps';
+		return state.configuration.rootUrl + state.configuration.baseUrl + 'apps';
 	},
 
 	logsEnabled: function logsEnabled() {
@@ -99,11 +99,9 @@ var Store = {
 	getUserData: function getUserData() {
 		return state.userData;
 	},
-	setBaseUrl: function setBaseUrl(baseUrl) {
-		state.configuration.baseUrl = baseUrl;
-	},
-	setLoginUrl: function setLoginUrl(loginUrl) {
-		state.configuration.loginUrl = loginUrl;
+
+	setRootUrl: function setRootUrl(rootUrl) {
+		state.configuration.rootUrl = rootUrl;
 	}
 };
 

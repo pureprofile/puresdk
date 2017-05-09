@@ -45,9 +45,8 @@ var PPBA = {
 			if (conf.appsVisible !== null) {
 				Store.setAppsVisible(conf.appsVisible);
 			}
-			if (conf.development) {
-				Store.setBaseUrl('https://dev-plm.pureprofile.com/api/v1/');
-				Store.setLoginUrl('https://dev-plm.pureprofile.com/api/v1/oauth2');
+			if (conf.rootUrl) {
+				Store.setRootUrl(conf.rootUrl);
 			}
 		}
 		ppbaConf = conf;

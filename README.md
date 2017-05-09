@@ -61,6 +61,10 @@ The supported params / keys of the configuration object are:
         <td>development (optional, default=false)</td>
         <td>When development is enabled it overrides the default call urls to call PureProfile's dev-servers instead of the current domain.</td>
     </tr>
+    <tr>
+        <td>rootUrl (optional)</td>
+        <td>For apps running on different domains you should set the root url explicitly.</td>
+    </tr>
 </table>
 
 ## Authenticate / authorize the user
