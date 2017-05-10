@@ -3,6 +3,7 @@ var PubSub = require('./modules/pubsub');
 var Caller = require('./modules/caller');
 var Store = require('./modules/store');
 var Dom = require('./modules/dom');
+var InfoController = require('./modules/info-controller');
 var ppbaConf = {};
 
 var afterRender = function afterRender() {
@@ -21,6 +22,8 @@ var afterRender = function afterRender() {
 		Dom.removeClass(document.getElementById('--puresdk-apps-container--'), 'active');
 		Dom.removeClass(document.getElementById('--puresdk-user-sidebar--'), 'active');
 	});
+
+	InfoController.init();
 };
 
 var PPBA = {
@@ -191,6 +194,20 @@ var PPBA = {
 		}
 	},
 
+	renderInfoBlocks: function renderInfoBlocks() {
+		var blocksTemplate = function blocksTemplate(index) {
+			return '\n\t\t\t\t <div class="--puresdk-info-box--" id="--puresdk-info-box--' + index + '">\n\t\t\t\t \t<div class="bac--timer" id="bac--timer' + index + '"></div>\n\t\t\t\t\t <div class="bac--inner-info-box--">\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-success"></div>\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-warning"></div>\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-info-1"></div>\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-error"></div>\n\t\t\t\t\t \t\t <div class="bac--info-main-text--" id="bac--info-main-text--' + index + '"></div>\n\t\t\t\t\t \t\t <div class="bac--info-close-button-- fa-close-1" id="bac--info-close-button--' + index + '"></div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t  ';
+		};
+
+		var infoBlocksWrapper = document.getElementById('bac--info-blocks-wrapper--');
+		var innerHtml = '';
+		for (var i = 1; i < 5; i++) {
+			innerHtml += blocksTemplate(i);
+		}
+
+		infoBlocksWrapper.innerHTML = innerHtml;
+	},
+
 	styleAccount: function styleAccount(account) {
 		var logo = document.createElement('img');
 		logo.src = account.sdk_logo_icon;
@@ -202,6 +219,21 @@ var PPBA = {
 		};
 		// document.getElementById('--puresdk--search--input--').style.cssText = "background: #" + account.sdk_search_background_color
 		//   + "; color: #" + account.sdk_search_font_color;
+	},
+
+	/*
+  type: one of:
+  - success
+  - info
+  - warning
+  - error
+  text: the text to display
+  options (optional): {
+  		hideIn: milliseconds to hide it. -1 for not hiding it at all. Default is 5000
+  }
+  */
+	setInfo: function setInfo(type, text, options) {
+		InfoController.showInfo(type, text, options);
 	},
 
 	render: function render() {
@@ -218,6 +250,7 @@ var PPBA = {
 		whereTo.innerHTML = Store.getHTML();
 		PPBA.styleAccount(Store.getUserData().user.account);
 		PPBA.renderUser(Store.getUserData().user);
+		PPBA.renderInfoBlocks();
 		PPBA.renderAccounts(Store.getUserData().user.accounts);
 		if (Store.getAppsVisible() === false) {
 			document.getElementById('--puresdk-apps-section--').style.cssText = "display:none";

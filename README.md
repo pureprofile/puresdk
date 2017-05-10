@@ -105,3 +105,39 @@ in such case the library automatically redirects the user to the login page.
 
 ## getUserData
 This function returns the full data of the user in an object.
+
+## Alert message boxes
+The library provides a method for displaying message boxes on top of the page. The supported types are:
+<ul>
+    <li>info</li>
+    <li>success</li>
+    <li>warning</li>
+    <li>error</li>
+</ul>
+
+In order to show a message box just use the "setInfo" method exposed by the sdk.
+Here are a couple of examples:
+<pre lang="javascript"><code>
+/*
+This code will pop up a success message box which will automatically hide itself in (the default) 5000 milliseconds
+*/
+puresdk.setInfo('success', 'Here goes your text');
+</code></pre>
+
+<pre lang="javascript"><code>
+/*
+This code will pop up a warning message box which will hide itself in 1000 millisecons (notice the third argument
+passed into the method).
+The third argument acts as options and it supports the "hideIn" key which can accept integers which represent the milliseconds
+that we want the info box to stay visible before hiding itself.
+*/
+puresdk.setInfo('warning', 'Here goes your text', {hideIn:1000});
+</code></pre>
+
+<pre lang="javascript"><code>
+/*
+This code will pop up an error message that will not hide itself automatically. It can only get hidden by clicking on the
+close button it provides on the right. This can be achieved by passing the value -1 to the hideIn key of the options.
+*/
+puresdk.setInfo('error', 'Here goes your text', {hideIn:-1});
+</code></pre>
