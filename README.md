@@ -141,3 +141,7 @@ close button it provides on the right. This can be achieved by passing the value
 */
 puresdk.setInfo('error', 'Here goes your text', {hideIn:-1});
 </code></pre>
+
+## goToLoginPage
+This method redirects the browser window to the login page. The method should be used in cases a 400 or 401 error code
+comes back from the backend (meaning the user has been logged out).

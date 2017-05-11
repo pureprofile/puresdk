@@ -70,7 +70,7 @@ var PPBA = {
 					_success(result);
 				},
 				fail: function fail(err) {
-					window.location = Store.getLoginUrl();
+					window.location.href = Store.getLoginUrl();
 				}
 			}
 		});
@@ -102,7 +102,7 @@ var PPBA = {
 					PPBA.renderApps(result.apps);
 				},
 				fail: function fail(err) {
-					window.location = Store.getLoginUrl();
+					window.location.href = Store.getLoginUrl();
 				}
 			}
 		});
@@ -130,7 +130,7 @@ var PPBA = {
 			endpoint: Store.getSwitchAccountEndpoint(accountId),
 			callbacks: {
 				success: function success(result) {
-					window.location = '/apps';
+					window.location.href = '/apps';
 				},
 				fail: function fail(err) {
 					alert('Sorry, something went wrong with your request. Plese try again');
@@ -151,7 +151,7 @@ var PPBA = {
 			div.innerHTML = appTemplate(app);
 			div.onclick = function (e) {
 				e.preventDefault();
-				window.location = app.application_url;
+				window.location.href = app.application_url;
 			};
 			document.getElementById("--puresdk-apps-container--").appendChild(div);
 		};
@@ -219,6 +219,10 @@ var PPBA = {
 		};
 		// document.getElementById('--puresdk--search--input--').style.cssText = "background: #" + account.sdk_search_background_color
 		//   + "; color: #" + account.sdk_search_font_color;
+	},
+
+	goToLoginPage: function goToLoginPage() {
+		window.location.href = Store.getLoginUrl();
 	},
 
 	/*

@@ -3,8 +3,8 @@
 /*!
  * PureProfile PureProfile Business Apps Development SDK
  *
- * version: 2.0.0
- * date: 2017-05-10
+ * version: 2.1.0
+ * date: 2017-05-11
  *
  * Copyright 2017, PureProfile
  * Released under MIT license
