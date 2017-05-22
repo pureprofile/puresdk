@@ -142,6 +142,14 @@ close button it provides on the right. This can be achieved by passing the value
 puresdk.setInfo('error', 'Here goes your text', {hideIn:-1});
 </code></pre>
 
+## Loader
+A loader is included on the sdk's top bar. It's positioned right next to the apps button and can be shown and hidden at any
+time. The methods that show/hide the loader are:
+<ul>
+    <li>showLoader()</li>
+    <li>hideLoader()</li>
+</ul>
+
 ## goToLoginPage
 This method redirects the browser window to the login page. The method should be used in cases a 401 error code
 comes back from the backend (meaning the user is not logged in).

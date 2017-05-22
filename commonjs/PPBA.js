@@ -230,6 +230,15 @@ var PPBA = {
 		window.location.href = Store.getLoginUrl();
 	},
 
+	/* LOADER */
+	showLoader: function showLoader() {
+		Dom.addClass(document.getElementById('--puresdk--loader--'), '--puresdk-visible');
+	},
+
+	hideLoader: function hideLoader() {
+		Dom.removeClass(document.getElementById('--puresdk--loader--'), '--puresdk-visible');
+	},
+
 	/*
   type: one of:
   - success
