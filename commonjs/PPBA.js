@@ -8,7 +8,7 @@ var Store = require('./modules/store');
 var ppbaConf = {};
 
 var afterRender = function afterRender() {
-	document.getElementById('--puresdk-apps-icon--').addEventListener('click', function (e) {
+	document.getElementById('--puresdk--apps--opener--').addEventListener('click', function (e) {
 		e.stopPropagation();
 		Dom.toggleClass(document.getElementById('--puresdk-apps-container--'), 'active');
 	});
