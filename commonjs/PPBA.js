@@ -253,6 +253,9 @@ var PPBA = {
 			div.id = Store.getHTLMContainer();
 			div.style.width = '100%';
 			div.style.height = '50px';
+			div.style.position = 'fixed';
+			div.style.top = '0';
+			div.style.zIndex = 9999999999;
 			document.body.insertBefore(div, document.body.firstChild);
 			whereTo = document.getElementById(Store.getHTLMContainer());
 		}
