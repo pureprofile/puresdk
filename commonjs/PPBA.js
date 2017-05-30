@@ -179,7 +179,7 @@ var PPBA = {
 
 	renderAccounts: function renderAccounts(accounts) {
 		var accountsTemplate = function accountsTemplate(account) {
-			return '\n\t\t\t\t<img src="' + account.sdk_square_logo_icon + '" alt="">\n\t\t\t\t<div class="bac-user-app-details">\n\t\t\t\t\t <span>' + account.name + '</span>\n\t\t\t\t\t <span>15 team members</span>\n\t\t\t\t</div>\n\t\t\t';
+			return '\n\t\t\t\t<div class="bac--user-list-item-image">\n\t\t\t\t\t<img src="' + account.sdk_square_logo_icon + '" alt="">\n\t\t\t\t</div>\n\t\t\t\t<div class="bac-user-app-details">\n\t\t\t\t\t <span>' + account.name + '</span>\n\t\t\t\t\t <span>15 team members</span>\n\t\t\t\t</div>\n\t\t\t';
 		};
 
 		var _loop2 = function _loop2(i) {
@@ -228,15 +228,6 @@ var PPBA = {
 
 	goToLoginPage: function goToLoginPage() {
 		window.location.href = Store.getLoginUrl();
-	},
-
-	/* LOADER */
-	showLoader: function showLoader() {
-		Dom.addClass(document.getElementById('--puresdk--loader--'), '--puresdk-visible');
-	},
-
-	hideLoader: function hideLoader() {
-		Dom.removeClass(document.getElementById('--puresdk--loader--'), '--puresdk-visible');
 	},
 
 	/*
