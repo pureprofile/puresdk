@@ -3,7 +3,8 @@ var state = {
 	userData: {},
 	configuration: {},
 	htmlTemplate: "",
-	apps: null
+	apps: null,
+	versionNumber: ''
 };
 
 function assemble(literal, params) {
@@ -26,6 +27,14 @@ var Store = {
   */
 	setConfiguration: function setConfiguration(conf) {
 		state.configuration = conf;
+	},
+
+	setVersionNumber: function setVersionNumber(version) {
+		state.versionNumber = version;
+	},
+
+	getVersionNumber: function getVersionNumber() {
+		return state.versionNumber;
 	},
 
 	getAppsVisible: function getAppsVisible() {

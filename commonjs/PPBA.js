@@ -44,6 +44,10 @@ var PPBA = {
 		Store.setHTMLTemplate(template);
 	},
 
+	setVersionNumber: function setVersionNumber(version) {
+		Store.setVersionNumber(version);
+	},
+
 	init: function init(conf) {
 		Logger.log('initializing with conf: ', conf);
 		if (conf) {
@@ -213,6 +217,10 @@ var PPBA = {
 		infoBlocksWrapper.innerHTML = innerHtml;
 	},
 
+	renderVersionNumber: function renderVersionNumber(version) {
+		document.getElementById('puresdk-version-number').innerHTML = version;
+	},
+
 	styleAccount: function styleAccount(account) {
 		var logo = document.createElement('img');
 		logo.src = account.sdk_logo_icon;
@@ -273,6 +281,7 @@ var PPBA = {
 		PPBA.renderUser(Store.getUserData().user);
 		PPBA.renderInfoBlocks();
 		PPBA.renderAccounts(Store.getUserData().user.accounts);
+		PPBA.renderVersionNumber(Store.getVersionNumber());
 		if (Store.getAppsVisible() === false) {
 			document.getElementById('--puresdk-apps-section--').style.cssText = "display:none";
 		}
