@@ -15,6 +15,23 @@ The npm repository is "puresdk".
 If you are working with npm you just need to require / import the library into your code. If you're loading the library
 in a script tag from CDN the library is exposed to window.PURESDK namespace.
 
+The CDN version of the library is available on the urls:
+### Latest version:
+http://purecdn.pureprofile.com/ppba.latest.minified.js
+
+### Specific version minified:
+http://purecdn.pureprofile.com/ppba.<= version number >.minified.js
+
+### Specific version not-minified:
+http://purecdn.pureprofile.com/ppba.<= version number >.js
+
+Example:
+http://purecdn.pureprofile.com/ppba.2.1.14.minified.js
+http://purecdn.pureprofile.com/ppba.2.1.14.js
+
+### Warning:
+CDN versions are available only from version 2.3.11 and up
+
 # Features
 ## Initialize the library
 First thing you should do is to initialize the library. This step is mandatory when using the library.
