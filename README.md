@@ -3,7 +3,7 @@ The purpose of this library is to aim developers create applications for the Pur
 The library provides:
 * authentication / authorization layer
 * navigation through apps and accounts
-* a generic search input which can be utilized by any application as it exports listeners
+* other help tools and features such as a notifications' mechanism are included
 
 # Distribution / Installation
 The library is available through npm, bower and cdn.
