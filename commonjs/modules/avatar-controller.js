@@ -14,8 +14,8 @@ var AvatarCtrl = {
 	_top_avatar_container: null,
 
 	init: function init() {
-		AvatarCtrl._submit = document.getElementById('---puresdk-avatar-submit');
-		AvatarCtrl._file = document.getElementById('---puresdk-avatar-file');
+		AvatarCtrl._submit = document.getElementById('bac---puresdk-avatar-submit');
+		AvatarCtrl._file = document.getElementById('bac---puresdk-avatar-file');
 		AvatarCtrl._top_avatar_container = document.getElementById('bac--image-container-top');
 		AvatarCtrl._progress = document.getElementById('bac--user-image-upload-progress');
 		AvatarCtrl._sidebar_avatar = document.getElementById('bac--user-image-file');
@@ -90,7 +90,7 @@ var AvatarCtrl = {
 		// }, false);
 
 		var url = Store.getAvatarUploadUrl();
-		Dom.addClass(AvatarCtrl._progress, '--puresdk-visible');
+		Dom.addClass(AvatarCtrl._progress, 'bac--puresdk-visible');
 		request.open('POST', url);
 		request.send(data);
 	},
@@ -100,14 +100,14 @@ var AvatarCtrl = {
 			return;
 		}
 
-		Dom.removeClass(AvatarCtrl._progress, '--puresdk-visible');
-		Dom.addClass(AvatarCtrl._sidebar_avatar, '--puresdk-visible');
+		Dom.removeClass(AvatarCtrl._progress, 'bac--puresdk-visible');
+		Dom.addClass(AvatarCtrl._sidebar_avatar, 'bac--puresdk-visible');
 		var img = document.createElement('img');
 		img.src = url;
 		AvatarCtrl._sidebar_avatar.innerHTML = '';
 		AvatarCtrl._sidebar_avatar.appendChild(img);
 
-		Dom.addClass(AvatarCtrl._top_avatar_container, '--puresdk-visible');
+		Dom.addClass(AvatarCtrl._top_avatar_container, 'bac--puresdk-visible');
 		var img_2 = document.createElement('img');
 		img_2.src = url;
 		AvatarCtrl._top_avatar_container.innerHTML = '';

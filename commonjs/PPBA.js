@@ -8,20 +8,20 @@ var Store = require('./modules/store');
 var ppbaConf = {};
 
 var afterRender = function afterRender() {
-	document.getElementById('--puresdk--apps--opener--').addEventListener('click', function (e) {
+	document.getElementById('bac--puresdk--apps--opener--').addEventListener('click', function (e) {
 		e.stopPropagation();
-		Dom.toggleClass(document.getElementById('--puresdk-apps-container--'), 'active');
+		Dom.toggleClass(document.getElementById('bac--puresdk-apps-container--'), 'active');
 	});
 
 	document.getElementById('bac--user-avatar-top').addEventListener('click', function (e) {
 		e.stopPropagation();
-		Dom.removeClass(document.getElementById('--puresdk-apps-container--'), 'active');
-		Dom.toggleClass(document.getElementById('--puresdk-user-sidebar--'), 'active');
+		Dom.removeClass(document.getElementById('bac--puresdk-apps-container--'), 'active');
+		Dom.toggleClass(document.getElementById('bac--puresdk-user-sidebar--'), 'active');
 	});
 
 	window.addEventListener('click', function (e) {
-		Dom.removeClass(document.getElementById('--puresdk-apps-container--'), 'active');
-		Dom.removeClass(document.getElementById('--puresdk-user-sidebar--'), 'active');
+		Dom.removeClass(document.getElementById('bac--puresdk-apps-container--'), 'active');
+		Dom.removeClass(document.getElementById('bac--puresdk-user-sidebar--'), 'active');
 	});
 
 	AvatarController.init();
@@ -162,7 +162,7 @@ var PPBA = {
 				e.preventDefault();
 				window.location.href = app.application_url;
 			};
-			document.getElementById("--puresdk-apps-container--").appendChild(div);
+			document.getElementById("bac--puresdk-apps-container--").appendChild(div);
 		};
 
 		for (var i = 0; i < apps.length; i++) {
@@ -177,8 +177,8 @@ var PPBA = {
 		var div = document.createElement('div');
 		div.className = "bac--user-sidebar-info";
 		div.innerHTML = userTemplate(user);
-		document.getElementById('--puresdk-user-details--').appendChild(div);
-		document.getElementById('--puresdk-user-avatar--').innerHTML = user.firstname.charAt(0) + user.lastname.charAt(0);
+		document.getElementById('bac--puresdk-user-details--').appendChild(div);
+		document.getElementById('bac--puresdk-user-avatar--').innerHTML = user.firstname.charAt(0) + user.lastname.charAt(0);
 	},
 
 	renderAccounts: function renderAccounts(accounts) {
@@ -195,7 +195,7 @@ var PPBA = {
 				e.preventDefault();
 				PPBA.changeAccount(account.sfid);
 			};
-			document.getElementById('--puresdk-user-businesses--').appendChild(div);
+			document.getElementById('bac--puresdk-user-businesses--').appendChild(div);
 		};
 
 		for (var i = 0; i < accounts.length; i++) {
@@ -205,7 +205,7 @@ var PPBA = {
 
 	renderInfoBlocks: function renderInfoBlocks() {
 		var blocksTemplate = function blocksTemplate(index) {
-			return '\n\t\t\t\t <div class="--puresdk-info-box--" id="--puresdk-info-box--' + index + '">\n\t\t\t\t \t<div class="bac--timer" id="bac--timer' + index + '"></div>\n\t\t\t\t\t <div class="bac--inner-info-box--">\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-success"></div>\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-warning"></div>\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-info-1"></div>\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-error"></div>\n\t\t\t\t\t \t\t <div class="bac--info-main-text--" id="bac--info-main-text--' + index + '"></div>\n\t\t\t\t\t \t\t <div class="bac--info-close-button-- fa-close-1" id="bac--info-close-button--' + index + '"></div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t  ';
+			return '\n\t\t\t\t <div class="bac--puresdk-info-box--" id="bac--puresdk-info-box--' + index + '">\n\t\t\t\t \t<div class="bac--timer" id="bac--timer' + index + '"></div>\n\t\t\t\t\t <div class="bac--inner-info-box--">\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-success"></div>\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-warning"></div>\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-info-1"></div>\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-error"></div>\n\t\t\t\t\t \t\t <div class="bac--info-main-text--" id="bac--info-main-text--' + index + '"></div>\n\t\t\t\t\t \t\t <div class="bac--info-close-button-- fa-close-1" id="bac--info-close-button--' + index + '"></div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t  ';
 		};
 
 		var infoBlocksWrapper = document.getElementById('bac--info-blocks-wrapper--');
@@ -224,13 +224,13 @@ var PPBA = {
 	styleAccount: function styleAccount(account) {
 		var logo = document.createElement('img');
 		logo.src = account.sdk_logo_icon;
-		document.getElementById('--puresdk-account-logo--').appendChild(logo);
-		document.getElementById('--puresdk-bac--header-apps--').style.cssText = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
-		document.getElementById('--puresdk-user-sidebar--').style.cssText = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
-		document.getElementById('--puresdk-account-logo--').onclick = function (e) {
+		document.getElementById('bac--puresdk-account-logo--').appendChild(logo);
+		document.getElementById('bac--puresdk-bac--header-apps--').style.cssText = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
+		document.getElementById('bac--puresdk-user-sidebar--').style.cssText = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
+		document.getElementById('bac--puresdk-account-logo--').onclick = function (e) {
 			window.location.href = '/';
 		};
-		// document.getElementById('--puresdk--search--input--').style.cssText = "background: #" + account.sdk_search_background_color
+		// document.getElementById('bac--puresdk--search--input--').style.cssText = "background: #" + account.sdk_search_background_color
 		//   + "; color: #" + account.sdk_search_font_color;
 	},
 
@@ -240,11 +240,11 @@ var PPBA = {
 
 	/* LOADER */
 	showLoader: function showLoader() {
-		Dom.addClass(document.getElementById('--puresdk--loader--'), '--puresdk-visible');
+		Dom.addClass(document.getElementById('bac--puresdk--loader--'), 'bac--puresdk-visible');
 	},
 
 	hideLoader: function hideLoader() {
-		Dom.removeClass(document.getElementById('--puresdk--loader--'), '--puresdk-visible');
+		Dom.removeClass(document.getElementById('bac--puresdk--loader--'), 'bac--puresdk-visible');
 	},
 
 	/*
@@ -283,7 +283,7 @@ var PPBA = {
 		PPBA.renderAccounts(Store.getUserData().user.accounts);
 		PPBA.renderVersionNumber(Store.getVersionNumber());
 		if (Store.getAppsVisible() === false) {
-			document.getElementById('--puresdk-apps-section--').style.cssText = "display:none";
+			document.getElementById('bac--puresdk-apps-section--').style.cssText = "display:none";
 		}
 		afterRender();
 	}

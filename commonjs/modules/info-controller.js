@@ -10,7 +10,7 @@ var InfoController = {
 		for (var i = 1; i < 5; i++) {
 			(function x(i) {
 				var closeFunction = function closeFunction() {
-					dom.removeClass(document.getElementById('--puresdk-info-box--' + i), 'bac--active--');
+					dom.removeClass(document.getElementById('bac--puresdk-info-box--' + i), 'bac--active--');
 					document.getElementById('bac--timer' + i).style.transition = '';
 					dom.removeClass(document.getElementById('bac--timer' + i), 'bac--fullwidth');
 					infoBlocks[i - 1].inUse = false;
@@ -18,10 +18,10 @@ var InfoController = {
 						if (infoBlocks[i - 1].closeTimeout) {
 							clearTimeout(infoBlocks[i - 1].closeTimeout);
 						}
-						dom.removeClass(document.getElementById('--puresdk-info-box--' + i), 'bac--success');
-						dom.removeClass(document.getElementById('--puresdk-info-box--' + i), 'bac--info');
-						dom.removeClass(document.getElementById('--puresdk-info-box--' + i), 'bac--warning');
-						dom.removeClass(document.getElementById('--puresdk-info-box--' + i), 'bac--error');
+						dom.removeClass(document.getElementById('bac--puresdk-info-box--' + i), 'bac--success');
+						dom.removeClass(document.getElementById('bac--puresdk-info-box--' + i), 'bac--info');
+						dom.removeClass(document.getElementById('bac--puresdk-info-box--' + i), 'bac--warning');
+						dom.removeClass(document.getElementById('bac--puresdk-info-box--' + i), 'bac--error');
 					}, 450);
 				};
 
@@ -40,7 +40,7 @@ var InfoController = {
 				infoBlocks.push({
 					id: i,
 					inUse: false,
-					element: document.getElementById('--puresdk-info-box--' + i),
+					element: document.getElementById('bac--puresdk-info-box--' + i),
 					closeFunction: closeFunction,
 					addText: addText,
 					addTimeout: addTimeout,
