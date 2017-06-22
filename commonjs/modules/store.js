@@ -4,7 +4,8 @@ var state = {
 	configuration: {},
 	htmlTemplate: "",
 	apps: null,
-	versionNumber: ''
+	versionNumber: '',
+	dev: false
 };
 
 function assemble(literal, params) {
@@ -18,6 +19,22 @@ var Store = {
 
 	setWindowName: function setWindowName(wn) {
 		state.general.windowName = wn;
+	},
+
+	setDev: function setDev(dev) {
+		state.dev = dev;
+	},
+
+	getDevUrlPart: function getDevUrlPart() {
+		if (state.dev) {
+			return "sandbox/";
+		} else {
+			return "";
+		}
+	},
+
+	getFullBaseUrl: function getFullBaseUrl() {
+		return state.configuration.rootUrl + state.configuration.baseUrl + Store.getDevUrlPart();
 	},
 
 	/*
@@ -62,15 +79,15 @@ var Store = {
 	},
 
 	getAuthenticationEndpoint: function getAuthenticationEndpoint() {
-		return state.configuration.rootUrl + state.configuration.baseUrl + 'session';
+		return Store.getFullBaseUrl() + 'session';
 	},
 
 	getSwitchAccountEndpoint: function getSwitchAccountEndpoint(accountId) {
-		return state.configuration.rootUrl + state.configuration.baseUrl + 'accounts/switch/' + accountId;
+		return Store.getFullBaseUrl() + 'accounts/switch/' + accountId;
 	},
 
 	getAppsEndpoint: function getAppsEndpoint() {
-		return state.configuration.rootUrl + state.configuration.baseUrl + 'apps';
+		return Store.getFullBaseUrl() + 'apps';
 	},
 
 	logsEnabled: function logsEnabled() {
@@ -114,11 +131,11 @@ var Store = {
 	},
 
 	getAvatarUploadUrl: function getAvatarUploadUrl() {
-		return state.configuration.rootUrl + state.configuration.baseUrl + 'assets/upload';
+		return Store.getFullBaseUrl() + 'assets/upload';
 	},
 
 	getAvatarUpdateUrl: function getAvatarUpdateUrl() {
-		return state.configuration.rootUrl + state.configuration.baseUrl + 'users/avatar';
+		return Store.getFullBaseUrl() + 'users/avatar';
 	}
 };
 

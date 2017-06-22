@@ -170,3 +170,20 @@ time. The methods that show/hide the loader are:
 ## goToLoginPage
 This method redirects the browser window to the login page. The method should be used in cases a 401 error code
 comes back from the backend (meaning the user is not logged in).
+
+
+# Development mode
+Only for development reasons, in order to have puresdk running on any url (including localhost or any other) init method
+of puresdk supports the following configuration options:
+<pre lang="javascript"><code>
+    {
+        dev: true, // declare that you are on dev mode
+        devKeys: {
+            secret: 'your-secret-key',
+            key: 'your-key'
+        }
+    }
+</code></pre>
+
+the devKeys (key & secret) are unique for each organisation and should be acquired directly from the PureProfile Development
+Team.

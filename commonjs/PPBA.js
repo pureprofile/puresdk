@@ -60,6 +60,12 @@ var PPBA = {
 			if (conf.rootUrl) {
 				Store.setRootUrl(conf.rootUrl);
 			}
+			if (conf.dev === true) {
+				if (conf.devKeys) {
+					Caller.setDevKeys(conf.devKeys);
+					Store.setDev(true);
+				}
+			}
 		}
 		ppbaConf = conf;
 		return true;

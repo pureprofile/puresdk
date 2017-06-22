@@ -1,7 +1,16 @@
 var Store = require('./store.js');
 var Logger = require('./logger');
 
+var devKeys = null;
+
 var Caller = {
+	/*
+ if the user sets
+  */
+	setDevKeys: function setDevKeys(keys) {
+		devKeys = keys;
+	},
+
 	/*
  expecte attributes:
  - type (either GET, POST, DELETE, PUT)
@@ -16,6 +25,11 @@ var Caller = {
 
 		var xhr = new XMLHttpRequest();
 		xhr.open(attrs.type, endpointUrl);
+
+		if (devKeys != null) {
+			xhr.setRequestHeader('x-pp-secret', devKeys.secret);
+			xhr.setRequestHeader('x-pp-key', devKeys.key);
+		}
 		//xhr.withCredentials = true;
 		xhr.setRequestHeader('Content-Type', 'application/json');
 		xhr.onload = function () {
@@ -35,7 +49,14 @@ var Caller = {
 	promiseCall: function promiseCall(attrs) {
 		return new Promise(function (resolve, reject) {
 			var xhr = new XMLHttpRequest();
+
 			xhr.open(attrs.type, attrs.endpoint);
+
+			if (devKeys != null) {
+				xhr.setRequestHeader('x-pp-secret', devKeys.secret);
+				xhr.setRequestHeader('x-pp-key', devKeys.key);
+			}
+
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.onload = function () {
 				if (this.status >= 200 && this.status < 300) {
