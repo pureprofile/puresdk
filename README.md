@@ -159,6 +159,33 @@ close button it provides on the right. This can be achieved by passing the value
 puresdk.setInfo('error', 'Here goes your text', {hideIn:-1});
 </code></pre>
 
+## Cloudinary image picker
+A Cloudinary image picker is included out of the box. All images used among the various apps of an account are stored on
+a Cloudinary repository and can be reused at any time by either the same or any other app.
+In order to browse and pick an already existing image from Cloudinary you should use the openCloudinaryPicker method exposed
+by puresdk.
+This method will pop up an image picker modal allowing the user to browse, search and pick the image they want.
+The method accepts just one argument of type object. For now the only thing to set is the success callback function that
+will be executed once the user picks an image. Here is an example of how to use the Cloudinary image picker:
+
+<pre lang="javascript"><code>
+/*
+example function that will accept the selected image as argument and will log its details.
+*/
+let imagePickHandlerMethod = (image) => {
+    console.log('Hooray! The user picked an image from the Cloudinary modal picker');
+    console.log(image);
+}
+
+/*
+This code will pop up the Cloudinary image picker modal. Once the user picks an image the callback passed on the options,
+on the key "onSelect" will be executed having as its first argument the selected image object
+*/
+puresdk.openCloudinaryPicker({
+    onSelect: imagePickHandlerMethod
+});
+</code></pre>
+
 ## Loader
 A loader is included on the sdk's top bar. It's positioned right next to the apps button and can be shown and hidden at any
 time. The methods that show/hide the loader are:

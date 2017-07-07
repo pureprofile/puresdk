@@ -1,6 +1,17 @@
 var Store = require('./store.js');
 var Logger = require('./logger');
 
+var paramsToGetVars = function paramsToGetVars(params) {
+	var toReturn = [];
+	for (var property in params) {
+		if (params.hasOwnProperty(property)) {
+			toReturn.push(property + '=' + params[property]);
+		}
+	}
+
+	return toReturn.join('&');
+};
+
 var devKeys = null;
 
 var Caller = {
@@ -24,6 +35,11 @@ var Caller = {
 		var endpointUrl = attrs.endpoint;
 
 		var xhr = new XMLHttpRequest();
+
+		if (attrs.type === 'GET' && attrs.params) {
+			endpointUrl = endpointUrl + "?" + paramsToGetVars(attrs.params);
+		}
+
 		xhr.open(attrs.type, endpointUrl);
 
 		if (devKeys != null) {
@@ -49,6 +65,10 @@ var Caller = {
 	promiseCall: function promiseCall(attrs) {
 		return new Promise(function (resolve, reject) {
 			var xhr = new XMLHttpRequest();
+
+			if (attrs.type === 'GET' && attrs.params) {
+				endpointUrl = endpointUrl + "?" + paramsToGetVars(attrs.params);
+			}
 
 			xhr.open(attrs.type, attrs.endpoint);
 

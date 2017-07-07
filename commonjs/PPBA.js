@@ -5,6 +5,7 @@ var Dom = require('./modules/dom');
 var InfoController = require('./modules/info-controller');
 var AvatarController = require('./modules/avatar-controller');
 var Store = require('./modules/store');
+var Cloudinary = require('./modules/cloudinary-image-picker');
 var ppbaConf = {};
 
 var afterRender = function afterRender() {
@@ -251,6 +252,10 @@ var PPBA = {
 
 	hideLoader: function hideLoader() {
 		Dom.removeClass(document.getElementById('bac--puresdk--loader--'), 'bac--puresdk-visible');
+	},
+
+	openCloudinaryPicker: function openCloudinaryPicker(options) {
+		Cloudinary.openModal(options);
 	},
 
 	/*

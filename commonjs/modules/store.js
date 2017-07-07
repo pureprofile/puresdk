@@ -5,7 +5,10 @@ var state = {
 	htmlTemplate: "",
 	apps: null,
 	versionNumber: '',
-	dev: false
+	dev: false,
+	filePicker: {
+		selectedFile: null
+	}
 };
 
 function assemble(literal, params) {
@@ -88,6 +91,10 @@ var Store = {
 
 	getAppsEndpoint: function getAppsEndpoint() {
 		return Store.getFullBaseUrl() + 'apps';
+	},
+
+	getCloudinaryEndpoint: function getCloudinaryEndpoint() {
+		return Store.getFullBaseUrl() + 'assets';
 	},
 
 	logsEnabled: function logsEnabled() {
