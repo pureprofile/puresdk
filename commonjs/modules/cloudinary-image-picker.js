@@ -105,7 +105,7 @@ var CloudinaryPicker = {
 
 						CloudinaryPicker.getImages(params);
 				} else {
-						CloudinaryPicker.initOptions.onSelect(item);
+						initOptions.onSelect(item);
 						CloudinaryPicker.closeModal();
 				}
 		},
