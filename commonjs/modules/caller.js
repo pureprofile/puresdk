@@ -46,7 +46,7 @@ var Caller = {
 			xhr.setRequestHeader('x-pp-secret', devKeys.secret);
 			xhr.setRequestHeader('x-pp-key', devKeys.key);
 		}
-		//xhr.withCredentials = true;
+		xhr.withCredentials = true;
 		xhr.setRequestHeader('Content-Type', 'application/json');
 		xhr.onload = function () {
 			if (xhr.status >= 200 && xhr.status < 300) {
@@ -71,6 +71,7 @@ var Caller = {
 			}
 
 			xhr.open(attrs.type, attrs.endpoint);
+			xhr.withCredentials = true;
 
 			if (devKeys != null) {
 				xhr.setRequestHeader('x-pp-secret', devKeys.secret);
