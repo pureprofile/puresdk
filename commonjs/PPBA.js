@@ -280,10 +280,10 @@ var PPBA = {
 			var div = document.createElement('div');
 			div.id = Store.getHTLMContainer();
 			div.style.width = '100%';
-			div.style.height = '50px';
-			div.style.position = 'fixed';
-			div.style.top = '0';
-			div.style.zIndex = 9999999999;
+			div.style.height = "50px";
+			div.style.position = "fixed";
+			div.style.top = "0px";
+			div.style.zIndex = "2147483647";
 			document.body.insertBefore(div, document.body.firstChild);
 			whereTo = document.getElementById(Store.getHTLMContainer());
 		}
