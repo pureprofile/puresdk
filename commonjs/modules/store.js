@@ -137,6 +137,10 @@ var Store = {
 		state.configuration.rootUrl = rootUrl;
 	},
 
+	getRootUrl: function getRootUrl() {
+		return state.configuration.rootUrl;
+	},
+
 	getAvatarUploadUrl: function getAvatarUploadUrl() {
 		return Store.getFullBaseUrl() + 'assets/upload';
 	},
