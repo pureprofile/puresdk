@@ -235,8 +235,8 @@ var PPBA = {
 		document.getElementById('bac--puresdk-bac--header-apps--').style.cssText = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
 		document.getElementById('bac--puresdk-user-sidebar--').style.cssText = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
 		document.getElementById('bac--puresdk-account-logo--').onclick = function (e) {
-			Logger.log(Store.getRootUrl());
-			window.location.href = '/';
+			//Logger.log(Store.getRootUrl());
+			window.location.href = Store.getRootUrl();
 		};
 		// document.getElementById('bac--puresdk--search--input--').style.cssText = "background: #" + account.sdk_search_background_color
 		//   + "; color: #" + account.sdk_search_font_color;
