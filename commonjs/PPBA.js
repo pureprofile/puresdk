@@ -248,7 +248,9 @@ var PPBA = {
 
 		document.getElementById('bac--puresdk-bac--header-apps--').style.cssText = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
 		document.getElementById('bac--puresdk-user-sidebar--').style.cssText = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
-		document.getElementById('bac--puresdk-apps-name--').style.cssText = "color: #" + account.sdk_font_color;
+		if (document.getElementById('bac--puresdk-apps-name--')) {
+			document.getElementById('bac--puresdk-apps-name--').style.cssText = "color: #" + account.sdk_font_color;
+		}
 	},
 
 	goToLoginPage: function goToLoginPage() {
