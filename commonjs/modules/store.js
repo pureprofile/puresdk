@@ -8,7 +8,8 @@ var state = {
 	dev: false,
 	filePicker: {
 		selectedFile: null
-	}
+	},
+	appInfo: null
 };
 
 function assemble(literal, params) {
@@ -75,6 +76,14 @@ var Store = {
 
 	setApps: function setApps(apps) {
 		state.apps = apps;
+	},
+
+	setAppInfo: function setAppInfo(appInfo) {
+		state.appInfo = appInfo;
+	},
+
+	getAppInfo: function getAppInfo() {
+		return state.appInfo;
 	},
 
 	getLoginUrl: function getLoginUrl() {

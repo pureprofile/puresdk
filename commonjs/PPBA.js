@@ -11,17 +11,18 @@ var ppbaConf = {};
 var afterRender = function afterRender() {
 	document.getElementById('bac--puresdk--apps--opener--').addEventListener('click', function (e) {
 		e.stopPropagation();
-		Dom.toggleClass(document.getElementById('bac--puresdk-apps-container--'), 'active');
+		// Dom.toggleClass(document.getElementById('bac--puresdk-apps-container--'), 'active');
+		window.location.href = Store.getRootUrl();
 	});
 
 	document.getElementById('bac--user-avatar-top').addEventListener('click', function (e) {
 		e.stopPropagation();
-		Dom.removeClass(document.getElementById('bac--puresdk-apps-container--'), 'active');
+		// Dom.removeClass(document.getElementById('bac--puresdk-apps-container--'), 'active');
 		Dom.toggleClass(document.getElementById('bac--puresdk-user-sidebar--'), 'active');
 	});
 
 	window.addEventListener('click', function (e) {
-		Dom.removeClass(document.getElementById('bac--puresdk-apps-container--'), 'active');
+		// Dom.removeClass(document.getElementById('bac--puresdk-apps-container--'), 'active');
 		Dom.removeClass(document.getElementById('bac--puresdk-user-sidebar--'), 'active');
 	});
 
@@ -66,6 +67,9 @@ var PPBA = {
 					Caller.setDevKeys(conf.devKeys);
 					Store.setDev(true);
 				}
+			}
+			if (conf.appInfo) {
+				Store.setAppInfo(conf.appInfo);
 			}
 		}
 		ppbaConf = conf;
@@ -115,7 +119,7 @@ var PPBA = {
 			callbacks: {
 				success: function success(result) {
 					Store.setApps(result);
-					PPBA.renderApps(result.apps);
+					// PPBA.renderApps(result.apps);
 				},
 				fail: function fail(err) {
 					window.location.href = Store.getLoginUrl();
@@ -155,27 +159,24 @@ var PPBA = {
 		});
 	},
 
-	renderApps: function renderApps(apps) {
-		var appTemplate = function appTemplate(app) {
-			return '\n\t\t\t\t<a href="#" style="background: #' + app.color + '"><i class="' + app.icon + '"></i></a>\n\t\t\t\t<span class="bac--app-name">' + app.name + '</span>\n\t\t\t\t<span class="bac--app-description">' + app.descr + '</span>\n\t\t\t';
-		};
-
-		var _loop = function _loop(i) {
-			var app = apps[i];
-			var div = document.createElement("div");
-			div.className = "bac--apps";
-			div.innerHTML = appTemplate(app);
-			div.onclick = function (e) {
-				e.preventDefault();
-				window.location.href = app.application_url;
-			};
-			document.getElementById("bac--puresdk-apps-container--").appendChild(div);
-		};
-
-		for (var i = 0; i < apps.length; i++) {
-			_loop(i);
-		}
-	},
+	// renderApps: (apps) => {
+	//   let appTemplate = (app) => `
+	// 		<a href="#" style="background: #${app.color}"><i class="${app.icon}"></i></a>
+	// 		<span class="bac--app-name">${app.name}</span>
+	// 		<span class="bac--app-description">${app.descr}</span>
+	// 	`;
+	//   for(let i=0; i<apps.length; i++){
+	// 		let app = apps[i];
+	// 		let div = document.createElement("div");
+	// 		div.className = "bac--apps";
+	// 		div.innerHTML = appTemplate(app);
+	// 		div.onclick = (e) => {
+	// 			 e.preventDefault();
+	// 			 window.location.href = app.application_url;
+	// 		}
+	// 		document.getElementById("bac--puresdk-apps-container--").appendChild(div);
+	//   }
+	// },
 
 	renderUser: function renderUser(user) {
 		var userTemplate = function userTemplate(user) {
@@ -193,7 +194,7 @@ var PPBA = {
 			return '\n\t\t\t\t<div class="bac--user-list-item-image">\n\t\t\t\t\t<img src="' + account.sdk_square_logo_icon + '" alt="">\n\t\t\t\t</div>\n\t\t\t\t<div class="bac-user-app-details">\n\t\t\t\t\t <span>' + account.name + '</span>\n\t\t\t\t</div>\n\t\t\t';
 		};
 
-		var _loop2 = function _loop2(i) {
+		var _loop = function _loop(i) {
 			var account = accounts[i];
 			var div = document.createElement('div');
 			div.className = 'bac--user-list-item';
@@ -206,7 +207,7 @@ var PPBA = {
 		};
 
 		for (var i = 0; i < accounts.length; i++) {
-			_loop2(i);
+			_loop(i);
 		}
 	},
 
@@ -229,17 +230,25 @@ var PPBA = {
 	},
 
 	styleAccount: function styleAccount(account) {
-		var logo = document.createElement('img');
-		logo.src = account.sdk_logo_icon;
-		document.getElementById('bac--puresdk-account-logo--').appendChild(logo);
+		var appInfo = Store.getAppInfo();
+		if (appInfo === null) {
+			var logo = document.createElement('img');
+			logo.src = account.sdk_logo_icon;
+			document.getElementById('bac--puresdk-account-logo--').appendChild(logo);
+			document.getElementById('bac--puresdk-account-logo--').onclick = function (e) {
+				//Logger.log(Store.getRootUrl());
+				window.location.href = Store.getRootUrl();
+			};
+		} else {
+			var appOpenerTemplate = function appOpenerTemplate(appInformation) {
+				return '\n\t \t  \t \t\t<div id="bac--puresdk--apps--opener--">\n                    <i class="fa fa-squares" id="bac--puresdk-apps-icon--"></i>\n                    <div id="bac--puresdk-apps-name--" class="bac--puresdk-apps-name--">apps</div>\n                    <a href="' + appInformation.root + '" id="app-name-link-to-root">' + appInformation.name + '</a>\n                </div>\n\t \t  \t \t';
+			};
+			document.getElementById('bac--puresdk-account-logo--').innerHTML = appOpenerTemplate(appInfo);
+		}
+
 		document.getElementById('bac--puresdk-bac--header-apps--').style.cssText = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
 		document.getElementById('bac--puresdk-user-sidebar--').style.cssText = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
-		document.getElementById('bac--puresdk-account-logo--').onclick = function (e) {
-			//Logger.log(Store.getRootUrl());
-			window.location.href = Store.getRootUrl();
-		};
-		// document.getElementById('bac--puresdk--search--input--').style.cssText = "background: #" + account.sdk_search_background_color
-		//   + "; color: #" + account.sdk_search_font_color;
+		document.getElementById('bac--puresdk-apps-name--').style.cssText = "color: #" + account.sdk_font_color;
 	},
 
 	goToLoginPage: function goToLoginPage() {

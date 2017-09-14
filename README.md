@@ -43,7 +43,6 @@ let puresdk = require('puresdk');
 
 puresdk.init({
     headerDivId: 'puresdk-container',
-    appsVisible: true,
     development: false
 });
 </code></pre>
@@ -52,7 +51,6 @@ puresdk.init({
 <pre lang="javascript"><code>
 window.PURESDK.init({
     headerDivId: 'puresdk-container',
-    appsVisible: true,
     development: false
 });
 </code></pre>
@@ -65,14 +63,25 @@ The supported params / keys of the configuration object are:
         <td><b>Description</b></td>
     </tr>
     <tr>
+        <td>appInfo (optional)</td>
+        <td>An object that holds two parameters: "name" and "root". The "name" is the name of the application and the "root" is
+        the root url of it. If appInfo is passed the top bar of puresdk instead of illustrating the current business logo on the left it
+        will illustrate the name of the app and it will be a link to the provided root url. <br/>Example:
+        <pre lang="javascript"><code>
+        window.PURESDK.init({
+            headerDivId: 'puresdk-container',
+            appInfo: {
+                name: "Group Builder",
+                root: "/app/groups"
+            }
+        });
+        </code></pre>
+        </td>
+    </tr>
+    <tr>
         <td>headerDivId (optional)</td>
         <td>The div id within which you want the header bar rendered by the library to seat in. If not defined the library
         creates a div of its own and automatically appends it in the beginning of your body tag</td>
-    </tr>
-    <tr>
-        <td>appsVisible (optional, default=true)</td>
-        <td>It referes to the applications icon of the top bar. If for any reason you don't want to have the applications
-        menu on your app you can set the value of appsVisible to false. Default is true.</td>
     </tr>
     <tr>
         <td>development (optional, default=false)</td>
@@ -94,7 +103,6 @@ let puresdk = require('puresdk');
 
 puresdk.init({
     headerDivId: 'puresdk-container',
-    appsVisible: true,
     development: false
 });
 
@@ -106,7 +114,6 @@ puresdk.authenticatePromise().then(/* here goes your code */);
 <pre lang="javascript"><code>
 window.PURESDK.init({
     headerDivId: 'puresdk-container',
-    appsVisible: true,
     development: false
 });
 
