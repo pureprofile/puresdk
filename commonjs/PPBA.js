@@ -9,11 +9,13 @@ var Cloudinary = require('./modules/cloudinary-image-picker');
 var ppbaConf = {};
 
 var afterRender = function afterRender() {
-	document.getElementById('bac--puresdk--apps--opener--').addEventListener('click', function (e) {
-		e.stopPropagation();
-		// Dom.toggleClass(document.getElementById('bac--puresdk-apps-container--'), 'active');
-		window.location.href = Store.getRootUrl();
-	});
+	if (document.getElementById('bac--puresdk--apps--opener--')) {
+		document.getElementById('bac--puresdk--apps--opener--').addEventListener('click', function (e) {
+			e.stopPropagation();
+			// Dom.toggleClass(document.getElementById('bac--puresdk-apps-container--'), 'active');
+			window.location.href = Store.getRootUrl();
+		});
+	}
 
 	document.getElementById('bac--user-avatar-top').addEventListener('click', function (e) {
 		e.stopPropagation();
