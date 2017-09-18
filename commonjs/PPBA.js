@@ -191,16 +191,17 @@ var PPBA = {
 		document.getElementById('bac--puresdk-user-avatar--').innerHTML = user.firstname.charAt(0) + user.lastname.charAt(0);
 	},
 
-	renderAccounts: function renderAccounts(accounts) {
-		var accountsTemplate = function accountsTemplate(account) {
-			return '\n\t\t\t\t<div class="bac--user-list-item-image">\n\t\t\t\t\t<img src="' + account.sdk_square_logo_icon + '" alt="">\n\t\t\t\t</div>\n\t\t\t\t<div class="bac-user-app-details">\n\t\t\t\t\t <span>' + account.name + '</span>\n\t\t\t\t</div>\n\t\t\t';
+	renderAccounts: function renderAccounts(accounts, currentAccount) {
+		// Logger.log(currentAccount);
+		var accountsTemplate = function accountsTemplate(account, isTheSelected) {
+			return '\n\t\t\t\t<div class="bac--user-list-item-image">\n\t\t\t\t\t<img src="' + account.sdk_square_logo_icon + '" alt="">\n\t\t\t\t</div>\n\t\t\t\t<div class="bac-user-app-details">\n\t\t\t\t\t <span>' + account.name + '</span>\n\t\t\t\t</div>\n\t\t\t\t' + (isTheSelected ? '<div id="bac--selected-acount-indicator" class="bac--selected-acount-indicator"></div>' : '') + '\n\t\t\t';
 		};
 
 		var _loop = function _loop(i) {
 			var account = accounts[i];
 			var div = document.createElement('div');
 			div.className = 'bac--user-list-item';
-			div.innerHTML = accountsTemplate(account);
+			div.innerHTML = accountsTemplate(account, account.sfid === currentAccount.sfid);
 			div.onclick = function (e) {
 				e.preventDefault();
 				PPBA.changeAccount(account.sfid);
@@ -253,6 +254,9 @@ var PPBA = {
 		if (document.getElementById('bac--puresdk-apps-name--')) {
 			document.getElementById('bac--puresdk-apps-name--').style.cssText = "color: #" + account.sdk_font_color;
 		}
+		if (document.getElementById('bac--selected-acount-indicator')) {
+			document.getElementById('bac--selected-acount-indicator').style.cssText = "background: #" + account.sdk_font_color;
+		}
 	},
 
 	goToLoginPage: function goToLoginPage() {
@@ -302,10 +306,10 @@ var PPBA = {
 			whereTo = document.getElementById(Store.getHTLMContainer());
 		}
 		whereTo.innerHTML = Store.getHTML();
-		PPBA.styleAccount(Store.getUserData().user.account);
 		PPBA.renderUser(Store.getUserData().user);
 		PPBA.renderInfoBlocks();
-		PPBA.renderAccounts(Store.getUserData().user.accounts);
+		PPBA.renderAccounts(Store.getUserData().user.accounts, Store.getUserData().user.account);
+		PPBA.styleAccount(Store.getUserData().user.account);
 		PPBA.renderVersionNumber(Store.getVersionNumber());
 		if (Store.getAppsVisible() === false) {
 			document.getElementById('bac--puresdk-apps-section--').style.cssText = "display:none";
