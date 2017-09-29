@@ -73,6 +73,11 @@ var PPBA = {
 			if (conf.appInfo) {
 				Store.setAppInfo(conf.appInfo);
 			}
+
+			/* optional session url */
+			if (conf.sessionEndpoint) {
+				Store.setSessionEndpoint(conf.sessionEndpoint);
+			}
 		}
 		ppbaConf = conf;
 		return true;

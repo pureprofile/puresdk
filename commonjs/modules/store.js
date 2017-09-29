@@ -1,8 +1,10 @@
 var state = {
 	general: {},
 	userData: {},
-	configuration: {},
-	htmlTemplate: "",
+	configuration: {
+		sessionEndpoint: 'session'
+	},
+	htmlTemplate: '',
 	apps: null,
 	versionNumber: '',
 	dev: false,
@@ -91,7 +93,7 @@ var Store = {
 	},
 
 	getAuthenticationEndpoint: function getAuthenticationEndpoint() {
-		return Store.getFullBaseUrl() + 'session';
+		return Store.getFullBaseUrl() + state.configuration.sessionEndpoint;
 	},
 
 	getSwitchAccountEndpoint: function getSwitchAccountEndpoint(accountId) {
@@ -130,6 +132,13 @@ var Store = {
 		return state.htmlTemplate;
 	},
 
+	setSessionEndpoint: function setSessionEndpoint(sessionEndpoint) {
+		if (sessionEndpoint.indexOf('/') === 0) {
+			sessionEndpoint = sessionEndpoint.substring(1, sessionEndpoint.length - 1);
+		}
+		state.configuration.sessionEndpoint = sessionEndpoint;
+	},
+
 	getWindowName: function getWindowName() {
 		return state.general.windowName;
 	},
@@ -143,7 +152,7 @@ var Store = {
 	},
 
 	setRootUrl: function setRootUrl(rootUrl) {
-		state.configuration.rootUrl = rootUrl;
+		state.configuration.rootUrl = rootUrl.replace(/\/?$/, '/');;
 	},
 
 	getRootUrl: function getRootUrl() {
