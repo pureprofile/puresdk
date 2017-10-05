@@ -78,6 +78,10 @@ var PPBA = {
 			if (conf.sessionEndpoint) {
 				Store.setSessionEndpoint(conf.sessionEndpoint);
 			}
+
+			if (conf.versionPrefix) {
+				Store.setUrlVersionPrefix(conf.versionPrefix);
+			}
 		}
 		ppbaConf = conf;
 		return true;

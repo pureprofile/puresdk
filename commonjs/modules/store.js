@@ -11,8 +11,7 @@ var state = {
 	filePicker: {
 		selectedFile: null
 	},
-	appInfo: null,
-	sessionEndpointByUser: false
+	appInfo: null
 };
 
 function assemble(literal, params) {
@@ -94,9 +93,6 @@ var Store = {
 	},
 
 	getAuthenticationEndpoint: function getAuthenticationEndpoint() {
-		if (state.sessionEndpointByUser) {
-			return state.rootUrl + state.configuration.sessionEndpoint;
-		}
 		return Store.getFullBaseUrl() + state.configuration.sessionEndpoint;
 	},
 
@@ -140,8 +136,11 @@ var Store = {
 		if (sessionEndpoint.indexOf('/') === 0) {
 			sessionEndpoint = sessionEndpoint.substring(1, sessionEndpoint.length - 1);
 		}
-		state.sessionEndpointByUser = true;
 		state.configuration.sessionEndpoint = sessionEndpoint;
+	},
+
+	setUrlVersionPrefix: function setUrlVersionPrefix(prefix) {
+		state.configuration.baseUrl = prefix;
 	},
 
 	getWindowName: function getWindowName() {
@@ -157,7 +156,7 @@ var Store = {
 	},
 
 	setRootUrl: function setRootUrl(rootUrl) {
-		state.configuration.rootUrl = rootUrl.replace(/\/?$/, '/');;
+		state.configuration.rootUrl = rootUrl.replace(/\/?$/, '/');; // adds trailing slash at the end of the url if it doesn't exist
 	},
 
 	getRootUrl: function getRootUrl() {
