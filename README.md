@@ -91,6 +91,12 @@ The supported params / keys of the configuration object are:
         <td>rootUrl (optional)</td>
         <td>For apps running on different domains you should set the root url explicitly.</td>
     </tr>
+    <tr>
+         <td>apiRootFolder (optional)</td>
+         <td>if you want to have a default API root folder (something such as api/v1) you can set it here. The default is "api/v1".
+         If you just want to get rid of it just pass the value ""
+         </td>
+    </tr>
 </table>
 
 ## Authenticate / authorize the user
