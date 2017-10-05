@@ -11,7 +11,8 @@ var state = {
 	filePicker: {
 		selectedFile: null
 	},
-	appInfo: null
+	appInfo: null,
+	sessionEndpointByUser: false
 };
 
 function assemble(literal, params) {
@@ -93,6 +94,9 @@ var Store = {
 	},
 
 	getAuthenticationEndpoint: function getAuthenticationEndpoint() {
+		if (state.sessionEndpointByUser) {
+			return state.rootUrl + state.configuration.sessionEndpoint;
+		}
 		return Store.getFullBaseUrl() + state.configuration.sessionEndpoint;
 	},
 
@@ -136,6 +140,7 @@ var Store = {
 		if (sessionEndpoint.indexOf('/') === 0) {
 			sessionEndpoint = sessionEndpoint.substring(1, sessionEndpoint.length - 1);
 		}
+		state.sessionEndpointByUser = true;
 		state.configuration.sessionEndpoint = sessionEndpoint;
 	},
 
