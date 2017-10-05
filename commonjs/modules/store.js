@@ -1,10 +1,8 @@
 var state = {
 	general: {},
 	userData: {},
-	configuration: {
-		sessionEndpoint: 'session'
-	},
-	htmlTemplate: '',
+	configuration: {},
+	htmlTemplate: "",
 	apps: null,
 	versionNumber: '',
 	dev: false,
@@ -93,7 +91,11 @@ var Store = {
 	},
 
 	getAuthenticationEndpoint: function getAuthenticationEndpoint() {
-		return Store.getFullBaseUrl() + state.configuration.sessionEndpoint;
+		if (state.configuration.sessionEndpoint) {
+			return Store.getFullBaseUrl() + state.configuration.sessionEndpoint;
+		} else {
+			return Store.getFullBaseUrl() + 'session';
+		}
 	},
 
 	getSwitchAccountEndpoint: function getSwitchAccountEndpoint(accountId) {
