@@ -1,15 +1,18 @@
 var state = {
 	general: {},
 	userData: {},
-	configuration: {},
-	htmlTemplate: "",
+	configuration: {
+		sessionEndpoint: 'session'
+	},
+	htmlTemplate: '',
 	apps: null,
 	versionNumber: '',
 	dev: false,
 	filePicker: {
 		selectedFile: null
 	},
-	appInfo: null
+	appInfo: null,
+	sessionEndpointByUser: false
 };
 
 function assemble(literal, params) {
@@ -91,11 +94,10 @@ var Store = {
 	},
 
 	getAuthenticationEndpoint: function getAuthenticationEndpoint() {
-		if (state.configuration.sessionEndpoint) {
-			return Store.getFullBaseUrl() + state.configuration.sessionEndpoint;
-		} else {
-			return Store.getFullBaseUrl() + 'session';
+		if (state.sessionEndpointByUser) {
+			return state.rootUrl + state.configuration.sessionEndpoint;
 		}
+		return Store.getFullBaseUrl() + state.configuration.sessionEndpoint;
 	},
 
 	getSwitchAccountEndpoint: function getSwitchAccountEndpoint(accountId) {
@@ -138,11 +140,8 @@ var Store = {
 		if (sessionEndpoint.indexOf('/') === 0) {
 			sessionEndpoint = sessionEndpoint.substring(1, sessionEndpoint.length - 1);
 		}
+		state.sessionEndpointByUser = true;
 		state.configuration.sessionEndpoint = sessionEndpoint;
-	},
-
-	setUrlVersionPrefix: function setUrlVersionPrefix(prefix) {
-		state.configuration.baseUrl = prefix;
 	},
 
 	getWindowName: function getWindowName() {
@@ -158,7 +157,7 @@ var Store = {
 	},
 
 	setRootUrl: function setRootUrl(rootUrl) {
-		state.configuration.rootUrl = rootUrl.replace(/\/?$/, '/');; // adds trailing slash at the end of the url if it doesn't exist
+		state.configuration.rootUrl = rootUrl.replace(/\/?$/, '/');;
 	},
 
 	getRootUrl: function getRootUrl() {
