@@ -1,12 +1,15 @@
 {
   "name": "puresdk",
-  "version": "2.6.10",
+  "version": "2.6.11",
   "description": "SDK for PureProfile's Business Apps Development",
   "main": "./commonjs/index.js",
   "keywords": [
     "PureProfile",
     "business"
   ],
+  "dependencies": {
+    "promise": "^8.0.1"
+  },
   "author": "PureProfile",
   "license": "MIT",
   "homepage": "http://github.com/pureprofile-warp/ppba"
