@@ -50,7 +50,9 @@ var Store = {
   - includeAppsMenu
   */
 	setConfiguration: function setConfiguration(conf) {
-		state.configuration = conf;
+		for (var key in conf) {
+			state.configuration[key] = conf[key];
+		}
 	},
 
 	setVersionNumber: function setVersionNumber(version) {
