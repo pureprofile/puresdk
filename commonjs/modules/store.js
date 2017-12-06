@@ -2,7 +2,8 @@ var state = {
 	general: {},
 	userData: {},
 	configuration: {
-		sessionEndpoint: 'session'
+		sessionEndpoint: 'session',
+		baseUrl: '/api/v1'
 	},
 	htmlTemplate: '',
 	apps: null,
@@ -30,6 +31,10 @@ var Store = {
 
 	setDev: function setDev(dev) {
 		state.dev = dev;
+	},
+
+	setUrlVersionPrefix: function setUrlVersionPrefix(prefix) {
+		state.configuration.baseUrl = prefix;
 	},
 
 	getDevUrlPart: function getDevUrlPart() {
@@ -97,7 +102,7 @@ var Store = {
 
 	getAuthenticationEndpoint: function getAuthenticationEndpoint() {
 		if (state.sessionEndpointByUser) {
-			return state.rootUrl + state.configuration.sessionEndpoint;
+			return Store.getFullBaseUrl() + state.configuration.sessionEndpoint;
 		}
 		return Store.getFullBaseUrl() + state.configuration.sessionEndpoint;
 	},
