@@ -2,12 +2,27 @@ var dom = require('./dom');
 
 var defaultHideIn = 5000;
 var lastIndex = 1;
+var numOfInfoBlocks = 10;
 
 var infoBlocks = [];
 
 var InfoController = {
+	renderInfoBlocks: function renderInfoBlocks() {
+		var blocksTemplate = function blocksTemplate(index) {
+			return '\n\t\t\t\t <div class="bac--puresdk-info-box--" id="bac--puresdk-info-box--' + index + '">\n\t\t\t\t \t<div class="bac--timer" id="bac--timer' + index + '"></div>\n\t\t\t\t\t <div class="bac--inner-info-box--">\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-success"></div>\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-warning"></div>\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-info-1"></div>\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-error"></div>\n\t\t\t\t\t \t\t <div class="bac--info-main-text--" id="bac--info-main-text--' + index + '"></div>\n\t\t\t\t\t \t\t <div class="bac--info-close-button-- fa-close-1" id="bac--info-close-button--' + index + '"></div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t  ';
+		};
+
+		var infoBlocksWrapper = document.getElementById('bac--info-blocks-wrapper--');
+		var innerHtml = '';
+		for (var i = 1; i < numOfInfoBlocks; i++) {
+			innerHtml += blocksTemplate(i);
+		}
+
+		infoBlocksWrapper.innerHTML = innerHtml;
+	},
+
 	init: function init() {
-		for (var i = 1; i < 5; i++) {
+		for (var i = 1; i < numOfInfoBlocks; i++) {
 			(function x(i) {
 				var closeFunction = function closeFunction() {
 					dom.removeClass(document.getElementById('bac--puresdk-info-box--' + i), 'bac--active--');
@@ -65,7 +80,7 @@ var InfoController = {
   }
   */
 	showInfo: function showInfo(type, text, options) {
-		for (var i = 0; i < infoBlocks.length; i++) {
+		for (var i = 0; i < numOfInfoBlocks; i++) {
 			var infoBlock = infoBlocks[i];
 			if (!infoBlock.inUse) {
 				infoBlock.inUse = true;

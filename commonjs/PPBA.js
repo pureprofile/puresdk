@@ -229,17 +229,7 @@ var PPBA = {
 	},
 
 	renderInfoBlocks: function renderInfoBlocks() {
-		var blocksTemplate = function blocksTemplate(index) {
-			return '\n\t\t\t\t <div class="bac--puresdk-info-box--" id="bac--puresdk-info-box--' + index + '">\n\t\t\t\t \t<div class="bac--timer" id="bac--timer' + index + '"></div>\n\t\t\t\t\t <div class="bac--inner-info-box--">\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-success"></div>\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-warning"></div>\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-info-1"></div>\n\t\t\t\t\t \t\t<div class="bac--info-icon-- fa-error"></div>\n\t\t\t\t\t \t\t <div class="bac--info-main-text--" id="bac--info-main-text--' + index + '"></div>\n\t\t\t\t\t \t\t <div class="bac--info-close-button-- fa-close-1" id="bac--info-close-button--' + index + '"></div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t  ';
-		};
-
-		var infoBlocksWrapper = document.getElementById('bac--info-blocks-wrapper--');
-		var innerHtml = '';
-		for (var i = 1; i < 5; i++) {
-			innerHtml += blocksTemplate(i);
-		}
-
-		infoBlocksWrapper.innerHTML = innerHtml;
+		InfoController.renderInfoBlocks();
 	},
 
 	renderVersionNumber: function renderVersionNumber(version) {
