@@ -97,7 +97,7 @@ var Store = {
 	},
 
 	getLoginUrl: function getLoginUrl() {
-		return state.configuration.rootUrl + state.configuration.loginUrl + "?" + state.configuration.redirectUrlParam + "=" + window.location.href;
+		return state.configuration.rootUrl + state.configuration.loginUrl; // + "?" + state.configuration.redirectUrlParam + "=" + window.location.href;
 	},
 
 	getAuthenticationEndpoint: function getAuthenticationEndpoint() {
