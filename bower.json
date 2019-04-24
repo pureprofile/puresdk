@@ -1,11 +1,11 @@
 {
   "name": "pureskd",
-  "version": "2.6.19",
+  "version": "2.6.20",
   "authors": [
     "Pure Profile"
   ],
   "description": "SDK for PureProfile's Business Apps Development",
-  "main": "./ppba.2.6.19.minified.js",
+  "main": "./ppba.2.6.20.minified.js",
   "keywords": [
     "PureProfile",
     "business"
