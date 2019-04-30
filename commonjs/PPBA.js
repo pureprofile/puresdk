@@ -15,6 +15,7 @@ if (typeof Promise === 'undefined') {
 
 var afterRender = function afterRender() {
 	document.getElementById('bac--puresdk--apps--opener--').addEventListener('click', function (e) {
+		e.preventDefault();
 		e.stopPropagation();
 		Dom.toggleClass(document.getElementById('bac--puresdk-apps-container--'), 'active');
 	});
