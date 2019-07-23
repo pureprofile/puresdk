@@ -75,6 +75,12 @@ var PPBA = {
 			}
 			if (conf.appInfo) {
 				Store.setAppInfo(conf.appInfo);
+				// if google tag manager is present it will push the user's info to dataLayer
+				if (dataLayer) {
+					dataLayer.push({
+						'app': conf.appInfo.name
+					});
+				}
 			}
 
 			/* optional session url */
@@ -90,6 +96,21 @@ var PPBA = {
 		return true;
 	},
 
+	setupGoogleTag: function setupGoogleTag(user) {
+		// if google tag manager is present it will push the user's info to dataLayer
+		if (dataLayer) {
+			dataLayer.push({
+				'userId': user.id,
+				'user': user.firstname + ' ' + user.lastname,
+				'tenant_id': user.tenant_id,
+				'userType': user.user_type,
+				'accountId': user.account_id,
+				'accountName': user.account.name
+			});
+		}
+	},
+
+
 	authenticate: function authenticate(_success) {
 		var self = PPBA;
 		Caller.makeCall({
@@ -101,6 +122,7 @@ var PPBA = {
 					Store.setUserData(result);
 					self.render();
 					PPBA.getApps();
+					PPBA.setupGoogleTag(result.user);
 					_success(result);
 				},
 				fail: function fail(err) {
@@ -121,6 +143,7 @@ var PPBA = {
 					Store.setUserData(result);
 					self.render();
 					PPBA.getApps();
+					PPBA.setupGoogleTag(result.user);
 				}
 			}
 		});
