@@ -76,10 +76,12 @@ var PPBA = {
 			if (conf.appInfo) {
 				Store.setAppInfo(conf.appInfo);
 				// if google tag manager is present it will push the user's info to dataLayer
-				if (dataLayer) {
+				try {
 					dataLayer.push({
 						'app': conf.appInfo.name
 					});
+				} catch (e) {
+					// no Google Tag has been set
 				}
 			}
 
@@ -98,7 +100,7 @@ var PPBA = {
 
 	setupGoogleTag: function setupGoogleTag(user) {
 		// if google tag manager is present it will push the user's info to dataLayer
-		if (dataLayer) {
+		try {
 			dataLayer.push({
 				'userId': user.id,
 				'user': user.firstname + ' ' + user.lastname,
@@ -107,6 +109,8 @@ var PPBA = {
 				'accountId': user.account_id,
 				'accountName': user.account.name
 			});
+		} catch (e) {
+			// no Google Tag has been set
 		}
 	},
 
