@@ -109,6 +109,10 @@ let puresdk = require('puresdk');
 
 puresdk.init({
     headerDivId: 'puresdk-container',
+    appInfo: {
+        name: "App Name",
+        root: "/app/root/url"
+    },
     development: false
 });
 
@@ -120,6 +124,10 @@ puresdk.authenticatePromise().then(/* here goes your code */);
 <pre lang="javascript"><code>
 window.PURESDK.init({
     headerDivId: 'puresdk-container',
+    appInfo: {
+        name: "App Name",
+        root: "/app/root/url"
+    },
     development: false
 });
 
