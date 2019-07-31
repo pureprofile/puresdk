@@ -224,7 +224,7 @@ var PPBA = {
 		var appInfo = Store.getAppInfo();
 		if (appInfo.root === "/app/groups") {
 			Dom.addClass(document.getElementById('bac--puresdk-groups-link--'), 'selected');
-		} else if (appInfo.root = "/app/campaigns") {
+		} else if (appInfo.root === "/app/campaigns") {
 			Dom.addClass(document.getElementById('bac--puresdk-campaigns-link--'), 'selected');
 		}
 	},
