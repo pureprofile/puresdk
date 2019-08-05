@@ -122,7 +122,7 @@ var PPBA = {
 			endpoint: Store.getAuthenticationEndpoint(),
 			callbacks: {
 				success: function success(result) {
-					Logger.log(result);
+					// Logger.log(result);
 					Store.setUserData(result);
 					self.render();
 					PPBA.getApps();
@@ -143,7 +143,7 @@ var PPBA = {
 			endpoint: Store.getAuthenticationEndpoint(),
 			middlewares: {
 				success: function success(result) {
-					Logger.log(result);
+					// Logger.log(result);
 					Store.setUserData(result);
 					self.render();
 					PPBA.getApps();
@@ -208,7 +208,6 @@ var PPBA = {
 			var app = apps[i];
 			var div = document.createElement("div");
 			div.className = "bac--apps";
-			console.log(app);
 			div.innerHTML = appTemplate(app);
 
 			// check to see if the user has access to the two main apps and remove disabled class
@@ -331,6 +330,21 @@ var PPBA = {
 		InfoController.showInfo(type, text, options);
 	},
 
+	setTitleAndFavicon: function setTitleAndFavicon() {
+		var favlink = document.createElement('link');
+		favlink.href = 'https://cloudcdn.pureprofile.com/image/upload/v1/__assets_master__/b1a0c316ad7f4a679c2eee615814466c';
+		favlink.rel = 'shortcut icon';
+		document.head.appendChild(favlink);
+
+		var appInfo = Store.getAppInfo();
+		if (appInfo !== null) {
+			document.title = 'Pureprofile Access | ' + appInfo.name;
+		} else {
+			document.title = 'Pureprofile Access';
+		}
+	},
+
+
 	render: function render() {
 		var whereTo = document.getElementById(Store.getHTLMContainer());
 		if (whereTo === null) {
@@ -350,6 +364,7 @@ var PPBA = {
 		PPBA.renderInfoBlocks();
 		PPBA.renderAccounts(Store.getUserData().user.accounts, Store.getUserData().user.account);
 		PPBA.styleAccount(Store.getUserData().user.account);
+		PPBA.setTitleAndFavicon();
 		PPBA.renderVersionNumber(Store.getVersionNumber());
 		if (Store.getAppsVisible() === false) {
 			document.getElementById('bac--puresdk-apps-section--').style.cssText = "display:none";
