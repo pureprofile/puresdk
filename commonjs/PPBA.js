@@ -270,6 +270,16 @@ var PPBA = {
 		document.getElementById('puresdk-version-number').innerHTML = version;
 	},
 
+	renderZendesk: function renderZendesk() {
+		var zdscript = document.createElement('script');
+		zdscript.src = "https://static.zdassets.com/ekr/snippet.js?key=9868c71d-6793-42aa-b2fa-12419c7bd498";
+		zdscript.id = "ze-snippet";
+		zdscript.async = true;
+		zdscript.type = 'text/javascript';
+		document.getElementsByTagName('head')[0].appendChild(zdscript);
+	},
+
+
 	styleAccount: function styleAccount(account) {
 		var appInfo = Store.getAppInfo();
 		var logo = document.createElement('img');
@@ -331,10 +341,10 @@ var PPBA = {
 	},
 
 	setTitleAndFavicon: function setTitleAndFavicon() {
-		var favlink = document.createElement('link');
+		var favlink = document.querySelector("link[rel*='icon']") || document.createElement('link');
 		favlink.href = 'https://cloudcdn.pureprofile.com/image/upload/v1/__assets_master__/b1a0c316ad7f4a679c2eee615814466c';
 		favlink.rel = 'shortcut icon';
-		document.head.appendChild(favlink);
+		document.getElementsByTagName('head')[0].appendChild(link);
 
 		var appInfo = Store.getAppInfo();
 		if (appInfo !== null) {
