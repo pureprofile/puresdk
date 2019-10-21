@@ -279,7 +279,6 @@ var PPBA = {
 		document.getElementsByTagName('head')[0].appendChild(zdscript);
 	},
 
-
 	styleAccount: function styleAccount(account) {
 		var appInfo = Store.getAppInfo();
 		var logo = document.createElement('img');
@@ -344,7 +343,7 @@ var PPBA = {
 		var favlink = document.querySelector("link[rel*='icon']") || document.createElement('link');
 		favlink.href = 'https://cloudcdn.pureprofile.com/image/upload/v1/__assets_master__/b1a0c316ad7f4a679c2eee615814466c';
 		favlink.rel = 'shortcut icon';
-		document.getElementsByTagName('head')[0].appendChild(link);
+		document.getElementsByTagName('head')[0].appendChild(favlink);
 
 		var appInfo = Store.getAppInfo();
 		if (appInfo !== null) {
@@ -373,6 +372,7 @@ var PPBA = {
 		PPBA.renderUser(Store.getUserData().user);
 		PPBA.renderInfoBlocks();
 		PPBA.renderAccounts(Store.getUserData().user.accounts, Store.getUserData().user.account);
+		PPBA.renderZendesk();
 		PPBA.styleAccount(Store.getUserData().user.account);
 		PPBA.setTitleAndFavicon();
 		PPBA.renderVersionNumber(Store.getVersionNumber());
