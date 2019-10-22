@@ -14,6 +14,10 @@ if (typeof Promise === 'undefined') {
 }
 
 var afterRender = function afterRender() {
+	if (Store.getFullWidth() === true) {
+		Dom.addClass(document.getElementById("bac--puresdk-bac--header-apps--"), 'bac--fullwidth');
+	}
+
 	document.getElementById('bac--puresdk--apps--opener--').addEventListener('click', function (e) {
 		e.preventDefault();
 		e.stopPropagation();
@@ -72,6 +76,9 @@ var PPBA = {
 					Caller.setDevKeys(conf.devKeys);
 					Store.setDev(true);
 				}
+			}
+			if (conf.fullWidth) {
+				Store.setFullWidth(conf.fullWidth);
 			}
 			if (conf.appInfo) {
 				Store.setAppInfo(conf.appInfo);

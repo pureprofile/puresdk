@@ -97,6 +97,12 @@ The supported params / keys of the configuration object are:
          If you just want to get rid of it just pass the value ""
          </td>
     </tr>
+    <tr>
+         <td>fullWidth (optional / default=false)</td>
+         <td>Setting fullWidth = true the sdk toolbar will take the 100% of the available window width. Set it to true
+         on cases your app is full width too.
+         </td>
+    </tr>
 </table>
 
 ## Authenticate / authorize the user

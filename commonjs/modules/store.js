@@ -1,5 +1,7 @@
 var state = {
-	general: {},
+	general: {
+		fullWidth: false
+	},
 	userData: {},
 	configuration: {
 		sessionEndpoint: 'session',
@@ -27,6 +29,10 @@ var Store = {
 
 	setWindowName: function setWindowName(wn) {
 		state.general.windowName = wn;
+	},
+
+	setFullWidth: function setFullWidth(fw) {
+		state.general.fullWidth = fw;
 	},
 
 	setDev: function setDev(dev) {
@@ -153,6 +159,10 @@ var Store = {
 
 	getWindowName: function getWindowName() {
 		return state.general.windowName;
+	},
+
+	getFullWidth: function getFullWidth() {
+		return state.general.fullWidth;
 	},
 
 	setUserData: function setUserData(userData) {
