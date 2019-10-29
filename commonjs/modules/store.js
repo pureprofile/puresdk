@@ -1,6 +1,7 @@
 var state = {
 	general: {
-		fullWidth: false
+		fullWidth: false,
+		displaySupport: false
 	},
 	userData: {},
 	configuration: {
@@ -33,6 +34,10 @@ var Store = {
 
 	setFullWidth: function setFullWidth(fw) {
 		state.general.fullWidth = fw;
+	},
+
+	setDisplaySupport: function setDisplaySupport(display) {
+		state.general.displaySupport = display;
 	},
 
 	setDev: function setDev(dev) {
@@ -163,6 +168,10 @@ var Store = {
 
 	getFullWidth: function getFullWidth() {
 		return state.general.fullWidth;
+	},
+
+	getDisplaySupport: function getDisplaySupport() {
+		return state.general.displaySupport;
 	},
 
 	setUserData: function setUserData(userData) {

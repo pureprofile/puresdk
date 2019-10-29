@@ -80,6 +80,9 @@ var PPBA = {
 			if (conf.fullWidth) {
 				Store.setFullWidth(conf.fullWidth);
 			}
+			if (conf.displaySupport) {
+				Store.setDisplaySupport(conf.displaySupport);
+			}
 			if (conf.appInfo) {
 				Store.setAppInfo(conf.appInfo);
 				// if google tag manager is present it will push the user's info to dataLayer
@@ -278,12 +281,14 @@ var PPBA = {
 	},
 
 	renderZendesk: function renderZendesk() {
-		var zdscript = document.createElement('script');
-		zdscript.src = "https://static.zdassets.com/ekr/snippet.js?key=9868c71d-6793-42aa-b2fa-12419c7bd498";
-		zdscript.id = "ze-snippet";
-		zdscript.async = true;
-		zdscript.type = 'text/javascript';
-		document.getElementsByTagName('head')[0].appendChild(zdscript);
+		if (Store.getDisplaySupport()) {
+			var zdscript = document.createElement('script');
+			zdscript.src = "https://static.zdassets.com/ekr/snippet.js?key=9868c71d-6793-42aa-b2fa-12419c7bd498";
+			zdscript.id = "ze-snippet";
+			zdscript.async = true;
+			zdscript.type = 'text/javascript';
+			document.getElementsByTagName('head')[0].appendChild(zdscript);
+		}
 	},
 
 	styleAccount: function styleAccount(account) {

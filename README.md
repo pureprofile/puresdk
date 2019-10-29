@@ -103,6 +103,11 @@ The supported params / keys of the configuration object are:
          on cases your app is full width too.
          </td>
     </tr>
+    <tr>
+         <td>displaySupport (optional / default=false)</td>
+         <td>Setting displaySupport = true will render the zenddesk support icon on the application. Default is false
+         </td>
+    </tr>
 </table>
 
 ## Authenticate / authorize the user
