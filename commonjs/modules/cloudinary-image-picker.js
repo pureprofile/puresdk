@@ -1,262 +1,256 @@
+"use strict";
+
 var debouncedTimeout = null;
 var currentQuery = '';
 var limit = 8;
 var latency = 500;
-var initOptions = void 0;
+var initOptions;
 var currentPage = 1;
 var metaData = null;
 var items = [];
 var paginationData = null;
 
 var PaginationHelper = require('./pagination-helper');
+
 var Caller = require('./caller');
+
 var Store = require('./store');
+
 var Dom = require('./dom');
 
 var CloudinaryPicker = {
+  initialise: function initialise() {
+    document.getElementById('bac--cloudinary--closebtn').onclick = function (e) {
+      CloudinaryPicker.closeModal();
+    };
 
-		initialise: function initialise() {
-				document.getElementById('bac--cloudinary--closebtn').onclick = function (e) {
-						CloudinaryPicker.closeModal();
-				};
-				document.getElementById('bac--cloudinary--search-input').onkeyup = function (e) {
-						CloudinaryPicker.handleSearch(e);
-				};
-				document.getElementById('bac--cloudinary--go-back').onclick = function (e) {
-						CloudinaryPicker.goBack();
-				};
-		},
+    document.getElementById('bac--cloudinary--search-input').onkeyup = function (e) {
+      CloudinaryPicker.handleSearch(e);
+    };
 
-		/*
+    document.getElementById('bac--cloudinary--go-back').onclick = function (e) {
+      CloudinaryPicker.goBack();
+    };
+  },
+
+  /*
   options: {
   	onSelect: it expects a function. This function will be invoked exactly at the moment the user picks
   		a file from cloudinary. The function will take just one param which is the selected item object
     closeOnEsc: true / false
   }
    */
-		openModal: function openModal(options) {
-				CloudinaryPicker.initialise();
-				initOptions = options;
-				Dom.addClass(document.getElementById('bac--cloudinary--modal'), 'is-open');
-				CloudinaryPicker.getImages({
-						page: 1,
-						limit: limit
-				});
-		},
+  openModal: function openModal(options) {
+    CloudinaryPicker.initialise();
+    initOptions = options;
+    Dom.addClass(document.getElementById('bac--cloudinary--modal'), 'is-open');
+    CloudinaryPicker.getImages({
+      page: 1,
+      limit: limit
+    });
+  },
+  closeModal: function closeModal() {
+    Dom.removeClass(document.getElementById('bac--cloudinary--modal'), 'is-open');
+  },
+  getImages: function getImages(options) {
+    // TODO make the call and get the images
+    Caller.makeCall({
+      type: 'GET',
+      endpoint: Store.getCloudinaryEndpoint(),
+      params: options,
+      callbacks: {
+        success: function success(result) {
+          CloudinaryPicker.onImagesResponse(result);
+        },
+        fail: function fail(err) {
+          alert(err);
+        }
+      }
+    });
+  },
+  handleSearch: function handleSearch(e) {
+    if (debouncedTimeout) {
+      clearTimeout(debouncedTimeout);
+    }
 
-		closeModal: function closeModal() {
-				Dom.removeClass(document.getElementById('bac--cloudinary--modal'), 'is-open');
-		},
+    if (e.target.value === currentQuery) {
+      return;
+    }
 
-		getImages: function getImages(options) {
-				// TODO make the call and get the images
+    var query = e.target.value;
+    currentQuery = query;
+    var options = {
+      page: 1,
+      limit: limit,
+      query: query
+    };
+    debouncedTimeout = setTimeout(function () {
+      CloudinaryPicker.getImages(options);
+    }, latency);
+  },
+  itemSelected: function itemSelected(item, e) {
+    if (item.type == 'folder') {
+      var params = {
+        page: 1,
+        limit: limit,
+        parent: item.id
+      }; // TODO set search input's value = ''
 
-				Caller.makeCall({
-						type: 'GET',
-						endpoint: Store.getCloudinaryEndpoint(),
-						params: options,
-						callbacks: {
-								success: function success(result) {
-										CloudinaryPicker.onImagesResponse(result);
-								},
-								fail: function fail(err) {
-										alert(err);
-								}
-						}
-				});
-		},
+      currentQuery = '';
+      CloudinaryPicker.getImages(params);
+    } else {
+      initOptions.onSelect(item);
+      CloudinaryPicker.closeModal();
+    }
+  },
+  onImagesResponse: function onImagesResponse(data) {
+    paginationData = PaginationHelper.getPagesRange(currentPage, Math.ceil(data.meta.total / limit));
+    metaData = data.meta;
+    items = data.assets;
+    CloudinaryPicker.render();
+  },
+  renderPaginationButtons: function renderPaginationButtons() {
+    var toReturn = [];
 
-		handleSearch: function handleSearch(e) {
-				if (debouncedTimeout) {
-						clearTimeout(debouncedTimeout);
-				}
+    var createPaginationElement = function createPaginationElement(aClassName, aFunction, spanClassName, spanContent) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      li.className = aClassName;
+      a.onclick = aFunction;
+      var span = document.createElement('span');
+      span.className = spanClassName;
 
-				if (e.target.value === currentQuery) {
-						return;
-				}
+      if (spanContent) {
+        span.innerHTML = spanContent;
+      }
 
-				var query = e.target.value;
+      a.appendChild(span);
+      li.appendChild(a);
+      return li;
+    };
 
-				currentQuery = query;
+    if (paginationData.hasPrevious) {
+      toReturn.push(createPaginationElement('disabled', function (e) {
+        e.preventDefault();
 
-				var options = {
-						page: 1,
-						limit: limit,
-						query: query
-				};
+        CloudinaryPicker._goToPage(1);
+      }, 'fa fa-angle-double-left'));
+      toReturn.push(createPaginationElement('disabled', function (e) {
+        e.preventDefault();
 
-				debouncedTimeout = setTimeout(function () {
-						CloudinaryPicker.getImages(options);
-				}, latency);
-		},
+        CloudinaryPicker._goToPage(currentPage - 1);
+      }, 'fa fa-angle-left'));
+    }
 
-		itemSelected: function itemSelected(item, e) {
+    for (var i = 0; i < paginationData.buttons.length; i++) {
+      (function (i) {
+        var btn = paginationData.buttons[i];
+        toReturn.push(createPaginationElement(btn.runningpage ? "active" : "-", function (e) {
+          e.preventDefault();
 
-				if (item.type == 'folder') {
+          CloudinaryPicker._goToPage(btn.pageno);
+        }, 'number', btn.pageno));
+      })(i);
+    }
 
-						var params = {
-								page: 1,
-								limit: limit,
-								parent: item.id
-						};
+    if (paginationData.hasNext) {
+      toReturn.push(createPaginationElement('disabled', function (e) {
+        e.preventDefault();
 
-						// TODO set search input's value = ''
-						currentQuery = '';
+        CloudinaryPicker._goToPage(currentPage + 1);
+      }, 'fa fa-angle-right'));
+      toReturn.push(createPaginationElement('disabled', function (e) {
+        e.preventDefault();
 
-						CloudinaryPicker.getImages(params);
-				} else {
-						initOptions.onSelect(item);
-						CloudinaryPicker.closeModal();
-				}
-		},
+        CloudinaryPicker._goToPage(Math.ceil(metaData.total / limit));
+      }, 'fa fa-angle-double-right'));
+    }
 
-		onImagesResponse: function onImagesResponse(data) {
+    document.getElementById('bac--cloudinary-actual-pagination-container').innerHTML = '';
 
-				paginationData = PaginationHelper.getPagesRange(currentPage, Math.ceil(data.meta.total / limit));
+    for (var _i = 0; _i < toReturn.length; _i++) {
+      document.getElementById('bac--cloudinary-actual-pagination-container').appendChild(toReturn[_i]);
+    }
+  },
+  _goToPage: function _goToPage(page) {
+    if (page === currentPage) {
+      return;
+    }
 
-				metaData = data.meta;
-				items = data.assets;
+    var params = {
+      page: page,
+      limit: limit
+    };
 
-				CloudinaryPicker.render();
-		},
+    if (metaData.asset) {
+      params.parent = metaData.asset;
+    }
 
-		renderPaginationButtons: function renderPaginationButtons() {
-				var toReturn = [];
+    if (currentQuery) {
+      params.query = currentQuery;
+    }
 
-				var createPaginationElement = function createPaginationElement(aClassName, aFunction, spanClassName, spanContent) {
-						var li = document.createElement('li');
-						var a = document.createElement('a');
-						li.className = aClassName;
-						a.onclick = aFunction;
-						var span = document.createElement('span');
-						span.className = spanClassName;
-						if (spanContent) {
-								span.innerHTML = spanContent;
-						}
-						a.appendChild(span);
-						li.appendChild(a);
-						return li;
-				};
+    currentPage = page;
+    CloudinaryPicker.getImages(params);
+  },
+  goBack: function goBack() {
+    var params = {
+      page: 1,
+      limit: limit
+    };
 
-				if (paginationData.hasPrevious) {
-						toReturn.push(createPaginationElement('disabled', function (e) {
-								e.preventDefault();
-								CloudinaryPicker._goToPage(1);
-						}, 'fa fa-angle-double-left'));
-						toReturn.push(createPaginationElement('disabled', function (e) {
-								e.preventDefault();
-								CloudinaryPicker._goToPage(currentPage - 1);
-						}, 'fa fa-angle-left'));
-				}
+    if (metaData.parent) {
+      params.parent = metaData.parent;
+    }
 
-				for (var i = 0; i < paginationData.buttons.length; i++) {
-						(function (i) {
-								var btn = paginationData.buttons[i];
-								toReturn.push(createPaginationElement(btn.runningpage ? "active" : "-", function (e) {
-										e.preventDefault();
-										CloudinaryPicker._goToPage(btn.pageno);
-								}, 'number', btn.pageno));
-						})(i);
-				}
+    if (currentQuery) {
+      params.query = currentQuery;
+    }
 
-				if (paginationData.hasNext) {
-						toReturn.push(createPaginationElement('disabled', function (e) {
-								e.preventDefault();
-								CloudinaryPicker._goToPage(currentPage + 1);
-						}, 'fa fa-angle-right'));
-						toReturn.push(createPaginationElement('disabled', function (e) {
-								e.preventDefault();
-								CloudinaryPicker._goToPage(Math.ceil(metaData.total / limit));
-						}, 'fa fa-angle-double-right'));
-				}
+    CloudinaryPicker.getImages(params);
+  },
+  renderItems: function renderItems() {
+    var oneItem = function oneItem(item) {
+      var itemIcon = function itemIcon() {
+        if (item.type != 'folder') {
+          return "<img src=".concat(item.thumb, " alt=\"\"/>");
+        } else {
+          return "<i class=\"fa fa-folder-o\"></i>";
+        }
+      };
 
-				document.getElementById('bac--cloudinary-actual-pagination-container').innerHTML = '';
-				for (var _i = 0; _i < toReturn.length; _i++) {
-						document.getElementById('bac--cloudinary-actual-pagination-container').appendChild(toReturn[_i]);
-				}
-		},
+      var funct = function funct() {
+        CloudinaryPicker.itemSelected(item);
+      };
 
-		_goToPage: function _goToPage(page) {
+      var newDomEl = document.createElement('div');
+      newDomEl.className = "cloud-images__item";
+      newDomEl.onclick = funct;
+      newDomEl.innerHTML = "\n\t\t\t\t\t\t  <div class=\"cloud-images__item__type\">\n\t\t\t\t\t\t\t\t".concat(itemIcon(), "\n\t\t\t\t\t\t  </div>\n\t\t\t\t\t\t  <div class=\"cloud-images__item__details\">\n\t\t\t\t\t\t\t\t<span class=\"cloud-images__item__details__name\">").concat(item.name, "</span>\n\t\t\t\t\t\t\t\t<span class=\"cloud-images__item__details__date\">").concat(item.crdate, "</span>\n\t\t\t\t\t\t  </div>\n\t\t\t\t\t\t  <div class=\"cloud-images__item__actions\">\n\t\t\t\t\t\t\t\t<a class=\"fa fa-pencil\"></a>\n\t\t\t\t\t\t  </div>");
+      return newDomEl;
+    };
 
-				if (page === currentPage) {
-						return;
-				}
+    document.getElementById('bac--cloudinary-itams-container').innerHTML = '';
 
-				var params = {
-						page: page,
-						limit: limit
-				};
+    for (var i = 0; i < items.length; i++) {
+      document.getElementById('bac--cloudinary-itams-container').appendChild(oneItem(items[i]));
+    }
+  },
+  render: function render() {
+    if (metaData.asset) {
+      Dom.removeClass(document.getElementById('bac--cloudinary--back-button-container'), 'hdn');
+    } else {
+      Dom.addClass(document.getElementById('bac--cloudinary--back-button-container'), 'hdn');
+    }
 
-				if (metaData.asset) {
-						params.parent = metaData.asset;
-				}
-				if (currentQuery) {
-						params.query = currentQuery;
-				}
+    CloudinaryPicker.renderItems();
 
-				currentPage = page;
-
-				CloudinaryPicker.getImages(params);
-		},
-
-		goBack: function goBack() {
-
-				var params = {
-						page: 1,
-						limit: limit
-				};
-				if (metaData.parent) {
-						params.parent = metaData.parent;
-				}
-				if (currentQuery) {
-						params.query = currentQuery;
-				}
-				CloudinaryPicker.getImages(params);
-		},
-
-		renderItems: function renderItems() {
-				var oneItem = function oneItem(item) {
-						var itemIcon = function itemIcon() {
-								if (item.type != 'folder') {
-										return '<img src=' + item.thumb + ' alt=""/>';
-								} else {
-										return '<i class="fa fa-folder-o"></i>';
-								}
-						};
-
-						var funct = function funct() {
-								CloudinaryPicker.itemSelected(item);
-						};
-
-						var newDomEl = document.createElement('div');
-						newDomEl.className = "cloud-images__item";
-						newDomEl.onclick = funct;
-						newDomEl.innerHTML = '\n\t\t\t\t\t\t  <div class="cloud-images__item__type">\n\t\t\t\t\t\t\t\t' + itemIcon() + '\n\t\t\t\t\t\t  </div>\n\t\t\t\t\t\t  <div class="cloud-images__item__details">\n\t\t\t\t\t\t\t\t<span class="cloud-images__item__details__name">' + item.name + '</span>\n\t\t\t\t\t\t\t\t<span class="cloud-images__item__details__date">' + item.crdate + '</span>\n\t\t\t\t\t\t  </div>\n\t\t\t\t\t\t  <div class="cloud-images__item__actions">\n\t\t\t\t\t\t\t\t<a class="fa fa-pencil"></a>\n\t\t\t\t\t\t  </div>';
-						return newDomEl;
-				};
-
-				document.getElementById('bac--cloudinary-itams-container').innerHTML = '';
-				for (var i = 0; i < items.length; i++) {
-						document.getElementById('bac--cloudinary-itams-container').appendChild(oneItem(items[i]));
-				}
-		},
-
-		render: function render() {
-				if (metaData.asset) {
-						Dom.removeClass(document.getElementById('bac--cloudinary--back-button-container'), 'hdn');
-				} else {
-						Dom.addClass(document.getElementById('bac--cloudinary--back-button-container'), 'hdn');
-				}
-
-				CloudinaryPicker.renderItems();
-
-				if (metaData.total > limit) {
-						Dom.removeClass(document.getElementById('bac--cloudinary-pagination-container'), 'hdn');
-						CloudinaryPicker.renderPaginationButtons();
-				} else {
-						Dom.addClass(document.getElementById('bac--cloudinary-pagination-container'), 'hdn');
-				}
-		}
+    if (metaData.total > limit) {
+      Dom.removeClass(document.getElementById('bac--cloudinary-pagination-container'), 'hdn');
+      CloudinaryPicker.renderPaginationButtons();
+    } else {
+      Dom.addClass(document.getElementById('bac--cloudinary-pagination-container'), 'hdn');
+    }
+  }
 };
-
 module.exports = CloudinaryPicker;
