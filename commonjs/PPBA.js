@@ -20,6 +20,11 @@ var ACG = require('./modules/account-consistency-guard');
 
 var ppbaConf = {};
 
+function hexToRgb(hex, opacity) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? "rgba(".concat(parseInt(result[1], 16), ", ").concat(parseInt(result[2], 16), ", ").concat(parseInt(result[3], 16), ", ").concat(opacity || 1, ")") : null;
+}
+
 if (typeof Promise === 'undefined') {
   require('promise/lib/rejection-tracking').enable();
 
@@ -259,7 +264,7 @@ var PPBA = {
     var div = document.createElement('div');
     div.className = "bac--user-sidebar-info";
     div.innerHTML = userTemplate(user);
-    document.getElementById('bac--puresdk-user-details--').appendChild(div);
+    document.getElementById('bac--puresdk-user-details--').prepend(div);
     document.getElementById('bac--puresdk-user-avatar--').innerHTML = user.firstname.charAt(0) + user.lastname.charAt(0);
   },
   renderAccounts: function renderAccounts(accounts, currentAccount) {
@@ -273,6 +278,10 @@ var PPBA = {
       var div = document.createElement('div');
       div.className = 'bac--user-list-item';
       div.innerHTML = accountsTemplate(account, account.sfid === currentAccount.sfid);
+
+      if (account.sfid === currentAccount.sfid) {
+        div.style.background = hexToRgb('#FFFFFF', 0.85);
+      }
 
       div.onclick = function (e) {
         e.preventDefault();
@@ -317,23 +326,21 @@ var PPBA = {
       appTitleContainer.className = "bac--puresdk-app-name--";
 
       var appOpenerTemplate = function appOpenerTemplate(appInformation) {
-        return "\n\t\t\t\t\t <a href=\"".concat(appInformation.root, "\" id=\"app-name-link-to-root\">").concat(appInformation.name, "</a>\n\t \t  \t \t");
+        return "\n\t\t\t\t\t \t<svg width=\"8px\" height=\"12px\" viewBox=\"0 0 8 12\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n\t\t\t\t\t\t  <!-- Generator: sketchtool 59.1 (101010) - https://sketch.com -->\n\t\t\t\t\t\t  <title>9A4B1E47-0BCC-4DEE-A3BB-00A5186EC184</title>\n\t\t\t\t\t\t  <desc>Created with sketchtool.</desc>\n\t\t\t\t\t\t  <g id=\"PP-BA-Portal-Home_Desktop-v2\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\n\t\t\t\t\t\t\t\t<g id=\"PPCM-Listing_Connexion_01_Max_D\" transform=\"translate(-181.000000, -78.000000)\" fill=\"#333333\" fill-rule=\"nonzero\">\n\t\t\t\t\t\t\t\t\t <g id=\"elements-/-sdk-/-button-copy-3-elements-/-sdk-/-button\" transform=\"translate(164.000000, 70.000000)\">\n\t\t\t\t\t\t\t\t\t\t  <g id=\"icons/apps/campaigns-icons-/-apps-/-40x40-/-back-arrow\" transform=\"translate(11.000000, 4.000000)\">\n\t\t\t\t\t\t\t\t\t\t\t\t<g id=\"download-arrow\" transform=\"translate(6.500000, 4.000000)\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t <path d=\"M-0.882740944,2.77957989 C-1.25271133,2.4068067 -1.85255183,2.4068067 -2.22252221,2.77957989 C-2.5924926,3.15235308 -2.5924926,3.75673783 -2.22252221,4.12951102 L2.83010937,9.22042011 C3.20007975,9.5931933 3.79992025,9.5931933 4.16989063,9.22042011 L9.22252221,4.12951102 C9.5924926,3.75673783 9.5924926,3.15235308 9.22252221,2.77957989 C8.85255183,2.4068067 8.25271133,2.4068067 7.88274094,2.77957989 L3.5,7.19552342 L-0.882740944,2.77957989 Z\" id=\"Path\" transform=\"translate(3.500000, 6.000000) rotate(-270.000000) translate(-3.500000, -6.000000) \"></path>\n\t\t\t\t\t\t\t\t\t\t\t\t</g>\n\t\t\t\t\t\t\t\t\t\t  </g>\n\t\t\t\t\t\t\t\t\t </g>\n\t\t\t\t\t\t\t\t</g>\n\t\t\t\t\t\t  </g>\n\t\t\t\t\t </svg>\n\t\t\t\t\t <a href=\"".concat(appInformation.root, "\" id=\"app-name-link-to-root\">").concat(appInformation.name, "</a>\n\t \t  \t \t");
       };
 
       appTitleContainer.innerHTML = appOpenerTemplate(appInfo);
       document.getElementById('bac--puresdk-account-logo--').appendChild(appTitleContainer);
     }
 
-    document.getElementById('bac--puresdk-bac--header-apps--').style.cssText = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
-    document.getElementById('bac--puresdk-user-sidebar--').style.cssText = "background: #" + account.sdk_background_color + "; color: #" + account.sdk_font_color;
-
-    if (document.getElementById('bac--puresdk-apps-name--')) {
-      document.getElementById('bac--puresdk-apps-name--').style.cssText = "color: #" + account.sdk_font_color;
-    }
-
-    if (document.getElementById('bac--selected-acount-indicator')) {
-      document.getElementById('bac--selected-acount-indicator').style.cssText = "background: #" + account.sdk_font_color;
-    }
+    var rgbBg = hexToRgb(account.sdk_background_color, 0.15);
+    document.getElementById('bac--puresdk-bac--header-apps--').style.cssText = "background: #" + account.sdk_background_color;
+    document.getElementById('bac--user-sidebar-white-bg').style.cssText = "background-color: " + rgbBg; // if(document.getElementById('bac--puresdk-apps-name--')){
+    // 	document.getElementById('bac--puresdk-apps-name--').style.cssText = "color: #" + account.sdk_font_color;
+    // }
+    // if(document.getElementById('bac--selected-acount-indicator')){
+    // 	document.getElementById('bac--selected-acount-indicator').style.cssText = "background: #" + account.sdk_font_color;
+    // }
   },
   goToLoginPage: function goToLoginPage() {
     window.location.href = Store.getLoginUrl();

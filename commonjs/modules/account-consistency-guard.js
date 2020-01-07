@@ -7,10 +7,12 @@ var ACG = {
     window.addEventListener('storage', function () {
       var newAccount = ls.getItem(accountKey);
 
-      if (newAccount !== tabAccount) {
-        invalidate();
-      } else {
-        validate();
+      if (newAccount) {
+        if (newAccount !== tabAccount) {
+          invalidate();
+        } else {
+          validate();
+        }
       }
     });
   },
