@@ -150,6 +150,7 @@ var PPBA = {
           Store.setUserData(result);
           self.render();
           PPBA.getApps();
+          ACG.changeAccount(result.user.account_sfid);
           ACG.initialise(result.user.account_sfid, function () {
             Dom.removeClass(document.getElementById('bac---invalid-account'), 'invalid');
           }, function () {
@@ -176,6 +177,7 @@ var PPBA = {
           Store.setUserData(result);
           self.render();
           PPBA.getApps();
+          ACG.changeAccount(result.user.account_sfid);
           ACG.initialise(result.user.account_sfid, function () {
             Dom.removeClass(document.getElementById('bac---invalid-account'), 'invalid');
           }, function () {
