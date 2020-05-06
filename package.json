@@ -1,6 +1,6 @@
 {
   "name": "puresdk",
-  "version": "2.9.7-rc.3",
+  "version": "2.9.7-rc.4",
   "description": "SDK for PureProfile's Business Apps Development",
   "main": "./commonjs/index.js",
   "keywords": [
@@ -8,7 +8,8 @@
     "business"
   ],
   "dependencies": {
-    "promise": "^8.0.1"
+    "promise": "^8.0.1",
+    "amplitude-js": "^6.2.0"
   },
   "author": "PureProfile",
   "license": "MIT",
