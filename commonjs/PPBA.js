@@ -14,6 +14,8 @@ var AvatarController = require('./modules/avatar-controller');
 
 var Store = require('./modules/store');
 
+var Amplitute = require('./modules/amplitude');
+
 var Cloudinary = require('./modules/cloudinary-image-picker');
 
 var ACG = require('./modules/account-consistency-guard');
@@ -68,6 +70,9 @@ var PPBA = {
   },
   setVersionNumber: function setVersionNumber(version) {
     Store.setVersionNumber(version);
+  },
+  logEvent: function logEvent(eventName, props) {
+    Amplitute.logEvent(eventName, props);
   },
   init: function init(conf) {
     Logger.log('initializing with conf: ', conf);
@@ -157,6 +162,8 @@ var PPBA = {
             Dom.addClass(document.getElementById('bac---invalid-account'), 'invalid');
           });
           PPBA.setupGoogleTag(result.user);
+          Amplitute.init(result.user);
+          Amplitute.logEvent('visit');
 
           _success(result);
         },
@@ -183,6 +190,8 @@ var PPBA = {
           }, function () {
             Dom.addClass(document.getElementById('bac---invalid-account'), 'invalid');
           });
+          Amplitute.init(result.user);
+          Amplitute.logEvent('visit');
           PPBA.setupGoogleTag(result.user);
         }
       }
@@ -220,6 +229,7 @@ var PPBA = {
       endpoint: Store.getSwitchAccountEndpoint(accountId),
       callbacks: {
         success: function success(result) {
+          Amplitute.logEvent('account change', {});
           ACG.changeAccount(accountId);
           window.location.href = '/apps';
         },

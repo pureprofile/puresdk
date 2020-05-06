@@ -1,6 +1,6 @@
 {
   "name": "puresdk",
-  "version": "2.9.7-rc.2",
+  "version": "2.9.7-rc.3",
   "description": "SDK for PureProfile's Business Apps Development",
   "main": "./commonjs/index.js",
   "keywords": [
