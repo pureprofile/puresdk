@@ -151,7 +151,7 @@ var PPBA = {
       endpoint: Store.getAuthenticationEndpoint(),
       callbacks: {
         success: function success(result) {
-          // Logger.log(result);
+          // console.log(result);
           Store.setUserData(result);
           self.render();
           PPBA.getApps();
@@ -180,7 +180,7 @@ var PPBA = {
       endpoint: Store.getAuthenticationEndpoint(),
       middlewares: {
         success: function success(result) {
-          // Logger.log(result);
+          // console.log(result);
           Store.setUserData(result);
           self.render();
           PPBA.getApps();
