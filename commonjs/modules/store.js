@@ -3,7 +3,8 @@
 var state = {
   general: {
     fullWidth: false,
-    displaySupport: false
+    displaySupport: false,
+    displayAppPortalButton: true
   },
   userData: {},
   configuration: {
@@ -34,6 +35,9 @@ var Store = {
   },
   setFullWidth: function setFullWidth(fw) {
     state.general.fullWidth = fw;
+  },
+  setDisplayAppPortalButton: function setDisplayAppPortalButton(dapp) {
+    state.general.displayAppPortalButton = dapp;
   },
   setDisplaySupport: function setDisplaySupport(display) {
     state.general.displaySupport = display;
@@ -144,6 +148,9 @@ var Store = {
   },
   getFullWidth: function getFullWidth() {
     return state.general.fullWidth;
+  },
+  getDisplayAppPortalButton: function getDisplayAppPortalButton() {
+    return state.general.displayAppPortalButton;
   },
   getDisplaySupport: function getDisplaySupport() {
     return state.general.displaySupport;

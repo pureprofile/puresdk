@@ -108,6 +108,11 @@ The supported params / keys of the configuration object are:
          <td>Setting displaySupport = true will render the zenddesk support icon on the application. Default is false
          </td>
     </tr>
+    <tr>
+         <td>displayAppPortalButton (optional / default=true)</td>
+         <td>Setting displayAppPortalButton = false will hide the "App Portal" button. Default is true
+         </td>
+    </tr>
 </table>
 
 ## Authenticate / authorize the user

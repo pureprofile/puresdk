@@ -38,6 +38,10 @@ var afterRender = function afterRender() {
     Dom.addClass(document.getElementById("bac--puresdk-bac--header-apps--"), 'bac--fullwidth');
   }
 
+  if (Store.getDisplayAppPortalButton() === false) {
+    Dom.addClass(document.querySelector(".bac--puresdk-app-name--"), 'disabled');
+  }
+
   document.getElementById('bac--puresdk--apps--opener--').addEventListener('click', function (e) {
     e.preventDefault();
     e.stopPropagation();
@@ -99,6 +103,10 @@ var PPBA = {
 
       if (conf.fullWidth) {
         Store.setFullWidth(conf.fullWidth);
+      }
+
+      if (conf.displayAppPortalButton !== null && conf.displayAppPortalButton !== undefined) {
+        Store.setDisplayAppPortalButton(conf.displayAppPortalButton);
       }
 
       if (conf.displaySupport) {
@@ -163,7 +171,7 @@ var PPBA = {
           });
           PPBA.setupGoogleTag(result.user);
           Amplitute.init(result.user);
-          Amplitute.logEvent('visit');
+          Amplitute.logEvent("visit ".concat(Store.getAppInfo().name || "Home"));
 
           _success(result);
         },
@@ -191,7 +199,7 @@ var PPBA = {
             Dom.addClass(document.getElementById('bac---invalid-account'), 'invalid');
           });
           Amplitute.init(result.user);
-          Amplitute.logEvent('visit');
+          Amplitute.logEvent("visit ".concat(Store.getAppInfo().name || "Home"));
           PPBA.setupGoogleTag(result.user);
         }
       }
