@@ -13,5 +13,6 @@
   },
   "author": "PureProfile",
   "license": "MIT",
-  "homepage": "http://github.com/pureprofile-warp/ppba"
+  "homepage": "http://github.com/pureprofile-warp/ppba",
+  "types": "./commonjs/index.d.ts"
 }
