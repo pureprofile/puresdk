@@ -315,6 +315,16 @@ var PPBA = {
       _loop(i);
     }
   },
+  renderSignOut: function renderSignOut(user) {
+    var el = document.getElementById('bac--logout--button');
+    if (user.is_hub_user) {
+      el.innerHTML = "<i class=\"fa fa-arrow-left\"></i> Log out";
+      el.href = "/api/v1/sign-off";
+    } else {
+      el.innerHTML = "<i class=\"fa fa-login-line\"></i> Back to Hub";
+      el.href = "/api/v1/back-to-hub";
+    }
+  },
   renderInfoBlocks: function renderInfoBlocks() {
     InfoController.renderInfoBlocks();
   },
@@ -411,6 +421,7 @@ var PPBA = {
 
     whereTo.innerHTML = Store.getHTML();
     PPBA.renderUser(Store.getUserData().user);
+    PPBA.renderSignOut(Store.getUserData().user);
     PPBA.renderInfoBlocks();
     PPBA.renderAccounts(Store.getUserData().user.accounts, Store.getUserData().user.account);
     PPBA.renderZendesk();
