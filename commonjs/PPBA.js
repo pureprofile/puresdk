@@ -317,7 +317,7 @@ var PPBA = {
   },
   renderSignOut: function renderSignOut(user) {
     var el = document.getElementById('bac--logout--button');
-    if (user.is_hub_user) {
+    if (user.hasOwnProperty("is_hub_user") && user.is_hub_user) {
       el.innerHTML = "<i class=\"fa fa-arrow-left\"></i> Log out";
       el.href = "/api/v1/sign-off";
     } else {
